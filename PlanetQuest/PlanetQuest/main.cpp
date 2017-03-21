@@ -84,6 +84,51 @@ void KeyboardUpGL(unsigned char c, int x, int y)
 	_rSceneManager.GetScene()->KeyboardUp(c, x, y);
 }
 
+
+void SpecialGL(int c, int x, int y)
+{
+	switch (c)
+	{
+	case GLUT_KEY_UP:
+		c = 'i';
+		break;
+	case GLUT_KEY_DOWN:
+		c = 'k';
+		break;
+	case GLUT_KEY_LEFT:
+		c = 'j';
+		break;
+	case GLUT_KEY_RIGHT:
+		c = 'l';
+		break;
+	}
+
+	CSceneManager& _rSceneManager = CSceneManager::GetInstance();
+	_rSceneManager.GetScene()->KeyboardDown(c, x, y);
+}
+
+void SpecialUpGL(int c, int x, int y)
+{
+	switch (c)
+	{
+	case GLUT_KEY_UP:
+		c = 'i';
+		break;
+	case GLUT_KEY_DOWN:
+		c = 'k';
+		break;
+	case GLUT_KEY_LEFT:
+		c = 'j';
+		break;
+	case GLUT_KEY_RIGHT:
+		c = 'l';
+		break;
+	}
+
+	CSceneManager& _rSceneManager = CSceneManager::GetInstance();
+	_rSceneManager.GetScene()->KeyboardUp(c, x, y);
+}
+
 /**
 *
 * Initialises the program.
@@ -256,6 +301,8 @@ int main(int argc, char **argv)
 	glutReshapeFunc(Reshape);
 	glutKeyboardFunc(KeyboardGL);
 	glutKeyboardUpFunc(KeyboardUpGL);
+	glutSpecialFunc(SpecialGL);
+	glutSpecialUpFunc(SpecialUpGL);
 	glutPassiveMotionFunc(PassiveMotionGL);
 	glutMouseFunc(MouseGL);
 	glutMainLoop();

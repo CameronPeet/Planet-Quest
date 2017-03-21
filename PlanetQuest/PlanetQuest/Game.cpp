@@ -1,5 +1,11 @@
 #include "Game.h"
 #include "SceneManager.h"
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+
 bool CGame::Init()
 {
 	m_pPlayer1 = new CPlayer(CUBE, "Type3Enemy.jpg");
@@ -58,14 +64,37 @@ void CGame::KeyboardDown(unsigned char c, int x, int y)
 	{
 	case 'w':
 	case 'W':
-		w = 1;
+		m_pPlayer1->w = 1;
 		break;
 	case 's':
 	case 'S':
-		s = 1;
+		m_pPlayer1->s = 1;
+		break;
+	case 'a':
+	case 'A':
+		m_pPlayer1->a = 1;
+		break;
+	case 'd':
+	case 'D':
+		m_pPlayer1->d = 1;
+		break;
+	case 'i':
+	case 'I':
+		m_pPlayer2->w = 1;
+		break;
+	case 'k':
+	case 'K':
+		m_pPlayer2->s = 1;
+		break;
+	case 'j':
+	case 'J':
+		m_pPlayer2->a = 1;
+		break;
+	case 'l':
+	case 'L':
+		m_pPlayer2->d = 1;
 		break;
 	}
-
 }
 
 void CGame::KeyboardUp(unsigned char c, int x, int y)
@@ -74,11 +103,35 @@ void CGame::KeyboardUp(unsigned char c, int x, int y)
 	{
 	case 'w':
 	case 'W':
-		w = 0;
+		m_pPlayer1->w = 0;
 		break;
 	case 's':
 	case 'S':
-		s = 0;
+		m_pPlayer1->s = 0;
+		break;
+	case 'a':
+	case 'A':
+		m_pPlayer1->a = 0;
+		break;
+	case 'd':
+	case 'D':
+		m_pPlayer1->d = 0;
+		break;
+	case 'i':
+	case 'I':
+		m_pPlayer2->w = 0;
+		break;
+	case 'k':
+	case 'K':
+		m_pPlayer2->s = 0;
+		break;
+	case 'j':
+	case 'J':
+		m_pPlayer2->a = 0;
+		break;
+	case 'l':
+	case 'L':
+		m_pPlayer2->d = 0;
 		break;
 	}
 }
@@ -92,5 +145,6 @@ void CGame::Reshape(int width, int height)
 
 void CGame::Update(float fDeltaTime)
 {
-
+	m_pPlayer1->Process(fDeltaTime);
+	m_pPlayer2->Process(fDeltaTime);
 }
