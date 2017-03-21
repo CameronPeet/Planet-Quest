@@ -54,10 +54,10 @@
       <Filter>FrameWork\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>1. Game Files</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>1. Game Files</Filter>
     </ClCompile>
     <ClCompile Include="Asteroid.cpp">
       <Filter>Source Files</Filter>
@@ -97,11 +97,11 @@
     <ClInclude Include="Camera.h">
       <Filter>FrameWork\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
+      <Filter>1. Game Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>1. Game Files</Filter>
     </ClInclude>
     <ClInclude Include="Asteroid.h">
       <Filter>Header Files</Filter>
