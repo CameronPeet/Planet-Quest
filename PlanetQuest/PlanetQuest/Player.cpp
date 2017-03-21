@@ -49,7 +49,15 @@ void CPlayer::MovePlayer(GLfloat _deltaTime)
 		Accelerate += (w - s) * _deltaTime;
 		Accelerate = clamp(Accelerate, 0.0f, 1.0f);
 	}
-	
+
+	if (Accelerate > 0.0f)
+	{
+		m_pModel->setTexture(Texture2);
+	}
+	else
+	{
+		m_pModel->setTexture(Texture1);
+	}
 
 	vec3 v = vec3(0, 0, Accelerate);
 	vec3 u = vec3(0, m_pModel->m_Rotation.y, m_pModel->m_Rotation.z);

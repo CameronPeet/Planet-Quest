@@ -15,6 +15,13 @@ bool CGame::Init()
 
 	m_pPlayer1->Initialise();
 	m_pPlayer2->Initialise();
+
+	m_pPlayer1->Texture1 = "Spacesuit_01.png";
+	m_pPlayer2->Texture1 = "Spacesuit_02.png";
+	
+	m_pPlayer1->Texture2 = "Spacesuit_Fire_01.png";
+	m_pPlayer2->Texture2 = "Spacesuit_Fire_02.png";
+
 	m_pAsteroid->Initialise();
 
 	//m_pModels.push_back(m_pPlayer1->GetModel());

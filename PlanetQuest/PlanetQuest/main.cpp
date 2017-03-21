@@ -293,6 +293,7 @@ int main(int argc, char **argv)
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
+
 	//glEnable(GL_CULL_FACE);
 
 	// register callbacks

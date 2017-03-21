@@ -35,4 +35,7 @@ public:
 
 	int w, a, s, d;
 	float Accelerate, Decelerate;
+
+	char* Texture1;
+	char* Texture2;
 };

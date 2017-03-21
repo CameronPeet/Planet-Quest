@@ -130,7 +130,14 @@ bool Model::Initialise()
 */
 void Model::Render(GLuint program, Camera& camera, Light* lightSource)
 {
+
+	//enable blending
+	//glEnable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glUseProgram(program);
+
 
 	//GLfloat currentTime = (GLfloat)glutGet(GLUT_ELAPSED_TIME);
 	//currentTime = currentTime / 1000;//convert millisecond to seconds
@@ -170,6 +177,10 @@ void Model::Render(GLuint program, Camera& camera, Light* lightSource)
 
 	}
 	glBindVertexArray(0);
+
+
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_BLEND);
 }
 
 /**
