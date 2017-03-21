@@ -37,7 +37,7 @@ Camera::Camera(int _iWindowWidth, int _iWindowHeight)
 {
 	m_Viewport = glm::vec4(0, 0, _iWindowWidth, _iWindowHeight);
 	glViewport(0, 0, _iWindowWidth, _iWindowHeight);
-	m_OrthoMatrix = glm::ortho(0.0f, static_cast<GLfloat>(800), 0.0f, static_cast<GLfloat>(600));
+	m_OrthoMatrix = glm::ortho(0.0f, static_cast<GLfloat>(_iWindowWidth), 0.0f, static_cast<GLfloat>(_iWindowHeight));
 }
 
 
