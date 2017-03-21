@@ -8,8 +8,10 @@
 
 bool CGame::Init()
 {
-	m_pPlayer1 = new CPlayer(CUBE, "Type3Enemy.jpg");
-	m_pPlayer2 = new CPlayer(CUBE, "Type2Enemy.jpg");
+	m_pPlayer1 = new CPlayer(QUAD, "Spacesuit_01.png");
+	m_pPlayer2 = new CPlayer(QUAD, "Spacesuit_02.png");
+
+	//m_pPlayer1->m_pModel->m_Rotation = glm::rotate(m_pPlayer1->m_pModel->m_Rotation, 90.0f, glm::vec3(1, 0, 0));
 
 	m_pPlayer1->Initialise();
 	m_pPlayer2->Initialise();

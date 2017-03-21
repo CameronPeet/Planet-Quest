@@ -16,6 +16,7 @@ CPlayer::CPlayer(ModelType eModelType, char* TextureName)
 	m_Position = vec3(0, 0, 0);
 	w = 0, s = 0, d = 0, s = 0;
 	m_fSpeed = 5.0f;
+	m_fTurnSpeed = 2.50f;
 }
 
 void CPlayer::Initialise()
@@ -32,8 +33,11 @@ void CPlayer::Process(GLfloat _deltaTime)
 {
 	MovePlayer(_deltaTime);
 
+	m_Position = glm::clamp(m_Position, vec3(-8.5f, 0, -8.5f) , vec3(8.5f, 0, 8.5f));
 
 	m_pModel->m_Position = m_Position;
+
+
 	//m_pModel->m_Rotation = m_Rotation;
 	//Do our stuff
 }
@@ -49,7 +53,7 @@ void CPlayer::MovePlayer(GLfloat _deltaTime)
 	
 
 	vec3 v = vec3(0, 0, Accelerate);
-	vec3 u = vec3(m_pModel->m_Rotation.x, m_pModel->m_Rotation.y, m_pModel->m_Rotation.z);
+	vec3 u = vec3(0, m_pModel->m_Rotation.y, m_pModel->m_Rotation.z);
 	float s = m_pModel->m_Rotation.w;
 	vec3 p = 2.0f * dot(u, v) * u + (s * s - dot(u, u)) * v + 2.0f * s * cross(u, v);
 
@@ -61,6 +65,6 @@ void CPlayer::MovePlayer(GLfloat _deltaTime)
 	float RotationDir = static_cast<float>(d - a);
 	if (RotationDir != 0.0f)
 	{
-		m_pModel->m_Rotation = glm::rotate(m_pModel->m_Rotation, _deltaTime, glm::vec3(0, 1, 0) * RotationDir);
+		m_pModel->m_Rotation = glm::rotate(m_pModel->m_Rotation, m_fTurnSpeed * _deltaTime, glm::vec3(0, 1, 0) * RotationDir);
 	}
 }

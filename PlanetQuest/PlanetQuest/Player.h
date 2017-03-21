@@ -26,6 +26,7 @@ public:
 
 	float m_fRadius;
 	float m_fSpeed;
+	float m_fTurnSpeed;
 
 	bool m_bAlive;
 
