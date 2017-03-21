@@ -1,14 +1,30 @@
 #include "Asteroid.h"
 
-CAsteroid::CAsteroid(vec3 spawnPos, vec3 targetPos, ModelType eModelType, char* TextureName)
+CAsteroid::CAsteroid(ModelType eModelType, char* TextureName)
 {
 	m_pModel = new Model(eModelType, TextureName);
-	m_pModel->SetPosition(spawnPos);
-	m_pModel->Initialise();
-	m_vSpawnPos = spawnPos;
-	m_vTargetPos = targetPos;
+	m_pModel->SetPosition(vec3(0.0f, 0.0f, 0.0f));
+}
+
+void CAsteroid::Initialise()
+{
+	srand(time(NULL));
+	m_vSpawnPos = GetRandomPosition(10.0f);
+	m_vTargetPos = GetRandomPosition(4.0f);
+	m_vPosition = m_vSpawnPos;
 	m_fSpeed = 2;
+
 	m_vDirectionNormal = normalize(TargetDirection(m_vSpawnPos, m_vTargetPos));
+	m_pModel->Initialise();
+}
+
+vec3& CAsteroid::GetRandomPosition(float fRadius)
+{
+	int _iRand = rand() % 360;
+	vec3* _vRandom = new vec3(sin(_iRand * PI / 180.0), 0.0f, cos(_iRand * PI / 180.0));
+	*_vRandom *= fRadius;
+
+	return *_vRandom;
 }
 
 vec3 CAsteroid::SpawnPos()
@@ -38,10 +54,8 @@ void CAsteroid::Render(GLuint program, Camera& camera)
 
 void CAsteroid::Update(float fDeltaTime)
 {
-	vec3 newPosition = m_pModel->getPosition();
-	newPosition += (m_vDirectionNormal * m_fSpeed) * fDeltaTime;
-	m_pModel->SetPosition(newPosition);
-	printf("%f %f %f\n", newPosition.x, newPosition.y, newPosition.z);
+	m_vPosition += (m_vDirectionNormal * m_fSpeed) * fDeltaTime;
+	m_pModel->SetPosition(m_vPosition);
 }
 
 void CAsteroid::SetDirection(vec3 vDirection)

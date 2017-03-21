@@ -32,7 +32,6 @@ void CPlayer::Process(GLfloat _deltaTime)
 {
 	MovePlayer(_deltaTime);
 
-
 	m_pModel->m_Position = m_Position;
 	//m_pModel->m_Rotation = m_Rotation;
 	//Do our stuff

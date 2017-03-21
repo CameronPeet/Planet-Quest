@@ -30,20 +30,21 @@ Each function creates a local definition of the shape described in the function 
 */
 void Utils::SetQuad(Model& _rModel)
 {
-	VertexFormat v1(0.5f, 0.5f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0);
-	VertexFormat v2(0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.f, 0.0f, 0.0);
-	VertexFormat v3(-0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0);
-	VertexFormat v4(-0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0);
+	VertexFormat V9(-0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0);
+	VertexFormat V10(-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0);
+	VertexFormat V11(0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0);
+	VertexFormat V12(0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0);
 
-	_rModel.vertices.push_back(v1);
-	_rModel.vertices.push_back(v2);
-	_rModel.vertices.push_back(v3);
-	_rModel.vertices.push_back(v4);
+	_rModel.vertices.push_back(V9);
+	_rModel.vertices.push_back(V10);
+	_rModel.vertices.push_back(V11);
+	_rModel.vertices.push_back(V12);
 
 	//Set Indices directly
 	_rModel.indices = { 0, 1, 3, 1, 2, 3 };
 
 }
+
 
 
 /*Author : Cameron Peet
