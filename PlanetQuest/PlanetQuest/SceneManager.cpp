@@ -15,6 +15,7 @@
 #pragma once
 #include "SceneManager.h"
 #include "Menu.h"
+#include "Game.h"
 
 CSceneManager* CSceneManager::s_pGame = 0;
 
@@ -112,7 +113,7 @@ bool CSceneManager::Initialise()
 		//m_pSelectedScene = m_pSceneMap.find("Credits")->second;
 		//m_pSelectedScene->Init();
 
-		m_pSceneMap.insert(std::pair<std::string, CScene*>("Menu", new CMenu()));
+		m_pSceneMap.insert(std::pair<std::string, CScene*>("Menu", new CGame()));
 		m_pSelectedScene = m_pSceneMap.find("Menu")->second;
 		m_pSelectedScene->Init();
 

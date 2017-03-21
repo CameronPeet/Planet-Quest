@@ -1,10 +1,15 @@
 #include "Game.h"
 #include "SceneManager.h"
-
-
 bool CGame::Init()
 {
-	//Initialise all models etc
+	m_pPlayer1 = new CPlayer(CUBE, "Type3Enemy.jpg");
+	m_pPlayer2 = new CPlayer(CUBE, "Type2Enemy.jpg");
+
+	m_pPlayer1->Initialise();
+	m_pPlayer2->Initialise();
+
+	//m_pModels.push_back(m_pPlayer1->GetModel());
+	//m_pModels.push_back(m_pPlayer2->GetModel());
 	return true;
 }
 
@@ -15,6 +20,9 @@ void CGame::SetTextPositions()
 
 void CGame::Render(GLuint program, Camera& camera)
 {
+	m_pPlayer1->Render(program, camera);
+	m_pPlayer2->Render(program, camera);
+
 	//render all models
 	for (auto itr : m_pModels)
 	{
@@ -25,85 +33,54 @@ void CGame::Render(GLuint program, Camera& camera)
 	{
 		itr->Render(camera);
 	}
+
 }
 
 
 //Highlight and play sound when you mouse over an active button 
 void CGame::PassiveMotion(int x, int y)
 {
-	y = glutGet(GLUT_WINDOW_HEIGHT) - y;
 
-	for (auto itr : *m_pCurrentMenu)
-	{
-		if (itr->isActive() && itr->isButton())
-		{
-			if (x > itr->position.x && x < itr->position.x + itr->width && y > itr->position.y && y < itr->position.y + itr->height)
-			{
-				if (!itr->isHighlighted())
-				{
-					CResources::PlayAudio("mouseover.wav");
-				}
-				itr->setHighlighted(true);
-				itr->setHighlight(glm::vec3(0, 0, 1));
-			}
-			else
-			{
-				if (itr->isHighlighted())
-				{
-					itr->setHighlighted(false);
-				}
-			}
-		}
-	}
 }
 
 //Check clicks against TextLabel Positions, check the name, do something based on name
 void CGame::Mouse(int button, int state, int x, int y)
 {
-	y = glutGet(GLUT_WINDOW_HEIGHT) - y;
-	//Dp Nothing
-	if (button == GLUT_LEFT_BUTTON)
-	{
-		if (state == GLUT_DOWN)
-		{
-			for (auto itr : *m_pCurrentMenu)
-			{
-				if (itr->isActive() && itr->isButton())
-				{
 
-					if (x > itr->position.x && x < itr->position.x + itr->width && y > itr->position.y && y < itr->position.y + itr->height)
-					{
-						std::string text = itr->getText();
-						if (text == "Play")
-						{
-							CSceneManager& _rSceneManager = CSceneManager::GetInstance();
-							_rSceneManager.SelectScene("Game");
-						}
-
-						else if (text == "Quit")
-						{
-							glutLeaveMainLoop();
-							//Utils::g_Play = false;
-						}
-
-						itr->setHighlighted(false);
-						break;
-					}
-				}
-			}
-		}
-	}
 }
 
+//Moveintoaclassformovenemt
+int w, a, s, d, up, down, left, right;
 //Take key input
 void CGame::KeyboardDown(unsigned char c, int x, int y)
 {
+	switch (c)
+	{
+	case 'w':
+	case 'W':
+		w = 1;
+		break;
+	case 's':
+	case 'S':
+		s = 1;
+		break;
+	}
 
 }
 
 void CGame::KeyboardUp(unsigned char c, int x, int y)
 {
-
+	switch (c)
+	{
+	case 'w':
+	case 'W':
+		w = 0;
+		break;
+	case 's':
+	case 'S':
+		s = 0;
+		break;
+	}
 }
 
 

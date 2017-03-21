@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scene.h"
-#include "Entity.h"
+#include "Player.h"
 
 
 class CGame : public CScene
@@ -30,5 +30,9 @@ private:
 
 	//Vector for easier rendering
 	std::vector<Model*> m_pModels;
-	std::vector<CEntity*> m_pEntities;
+
+	Camera *m_Camera;
+
+	CPlayer* m_pPlayer1;
+	CPlayer* m_pPlayer2;
 };

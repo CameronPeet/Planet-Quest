@@ -13,7 +13,6 @@
 #include "ShaderLoader.h"
 #include "Model.h"
 #include "Camera.h"
-#include "Entity.h"
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Menu.h"
@@ -121,8 +120,8 @@ bool init()
 
 
 	//Camera Set up
-	g_Camera.SetPosition(glm::vec3(0.0f, 0.0f, 1.0f));  //Set camera above the plane
-	g_Camera.SetEulerAngles(glm::vec3(-60, 0, 0));		//Set a 60 degree angle around its x axis, to point towards the plane
+	g_Camera.SetPosition(glm::vec3(0.0f, -10.0f, 0.0f));  //Set camera above the plane
+	g_Camera.SetEulerAngles(glm::vec3(90.0f, 0, 0));		//Set a 60 degree angle around its x axis, to point towards the plane
 
 	CSceneManager& _rSceneManager = CSceneManager::GetInstance();
 	VALIDATE(_rSceneManager.Initialise());

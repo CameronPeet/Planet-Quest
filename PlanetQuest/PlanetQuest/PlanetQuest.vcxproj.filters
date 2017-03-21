@@ -18,6 +18,9 @@
     <Filter Include="FrameWork\Source Files">
       <UniqueIdentifier>{eec92ced-fe36-4911-b029-c1ee57538564}</UniqueIdentifier>
     </Filter>
+    <Filter Include="1. Game Files">
+      <UniqueIdentifier>{fe4bd7a1-bfb7-4883-8aa9-6a1cf2dbc086}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextLabel.cpp">
@@ -44,9 +47,6 @@
     <ClCompile Include="main.cpp">
       <Filter>FrameWork\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>FrameWork\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>FrameWork\Source Files</Filter>
     </ClCompile>
@@ -54,6 +54,9 @@
       <Filter>FrameWork\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -88,13 +91,13 @@
     <ClInclude Include="Model.h">
       <Filter>FrameWork\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>FrameWork\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>FrameWork\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
