@@ -2,6 +2,7 @@
 
 #include "Scene.h"
 #include "Player.h"
+#include "Asteroid.h"
 
 
 class CGame : public CScene
@@ -35,4 +36,5 @@ private:
 
 	CPlayer* m_pPlayer1;
 	CPlayer* m_pPlayer2;
+	CAsteroid* m_pAsteroid;
 };

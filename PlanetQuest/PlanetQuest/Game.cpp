@@ -2,8 +2,9 @@
 #include "SceneManager.h"
 bool CGame::Init()
 {
-	m_pPlayer1 = new CPlayer(CUBE, "Type3Enemy.jpg");
-	m_pPlayer2 = new CPlayer(CUBE, "Type2Enemy.jpg");
+	m_pPlayer1 = new CPlayer(CUBE, "Spacesuit_01.png");
+	m_pPlayer2 = new CPlayer(CUBE, "Spacesuit_02.png");
+	m_pAsteroid = new CAsteroid(vec3(5.0f, 0.0f, 5.0f), vec3(-5.0f, 0.0f, -5.0f), CUBE, "Asteroid.png");
 
 	m_pPlayer1->Initialise();
 	m_pPlayer2->Initialise();
@@ -22,7 +23,7 @@ void CGame::Render(GLuint program, Camera& camera)
 {
 	m_pPlayer1->Render(program, camera);
 	m_pPlayer2->Render(program, camera);
-
+	m_pAsteroid->Render(program, camera);
 	//render all models
 	for (auto itr : m_pModels)
 	{
@@ -92,5 +93,5 @@ void CGame::Reshape(int width, int height)
 
 void CGame::Update(float fDeltaTime)
 {
-
+	m_pAsteroid->Update(fDeltaTime);
 }
