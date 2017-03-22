@@ -36,5 +36,5 @@ private:
 
 	CPlayer* m_pPlayer1;
 	CPlayer* m_pPlayer2;
-	CAsteroid* m_pAsteroid;
+	std::vector<CAsteroid*> m_pAsteroids;
 };

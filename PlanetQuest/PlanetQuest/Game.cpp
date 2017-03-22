@@ -8,9 +8,10 @@
 
 bool CGame::Init()
 {
+	CAsteroid* newAsteroid;
 	m_pPlayer1 = new CPlayer(QUAD, "Spacesuit_01.png");
 	m_pPlayer2 = new CPlayer(QUAD, "Spacesuit_02.png");
-	m_pAsteroid = new CAsteroid(QUAD, "Asteroid.png");
+	newAsteroid = new CAsteroid(QUAD, "Asteroid.png");
 	//m_pPlayer1->m_pModel->m_Rotation = glm::rotate(m_pPlayer1->m_pModel->m_Rotation, 90.0f, glm::vec3(1, 0, 0));
 
 	m_pPlayer1->Initialise();
@@ -22,8 +23,9 @@ bool CGame::Init()
 	m_pPlayer1->Texture2 = "Spacesuit_Fire_01.png";
 	m_pPlayer2->Texture2 = "Spacesuit_Fire_02.png";
 
-	m_pAsteroid->Initialise();
+	newAsteroid->Initialise();
 
+	m_pAsteroids.push_back(newAsteroid);
 	//m_pModels.push_back(m_pPlayer1->GetModel());
 	//m_pModels.push_back(m_pPlayer2->GetModel());
 	return true;
@@ -38,7 +40,6 @@ void CGame::Render(GLuint program, Camera& camera)
 {
 	m_pPlayer1->Render(program, camera);
 	m_pPlayer2->Render(program, camera);
-	m_pAsteroid->Render(program, camera);
 	//render all models
 	for (auto itr : m_pModels)
 	{
@@ -49,7 +50,11 @@ void CGame::Render(GLuint program, Camera& camera)
 	{
 		itr->Render(camera);
 	}
-
+	//render all Asteroids
+	for (auto itr : m_pAsteroids)
+	{
+		itr->Render(program, camera);
+	}
 }
 
 
@@ -155,7 +160,10 @@ void CGame::Reshape(int width, int height)
 
 void CGame::Update(float fDeltaTime)
 {
-	m_pAsteroid->Update(fDeltaTime);
+	for (auto itr : m_pAsteroids)
+	{
+		itr->Update(fDeltaTime);
+	}
 	m_pPlayer1->Process(fDeltaTime);
 	m_pPlayer2->Process(fDeltaTime);
 }
