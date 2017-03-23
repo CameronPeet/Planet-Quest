@@ -37,4 +37,6 @@ private:
 	CPlayer* m_pPlayer1;
 	CPlayer* m_pPlayer2;
 	std::vector<CAsteroid*> m_pAsteroids;
+
+	float m_fLastTime;
 };

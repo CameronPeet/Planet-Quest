@@ -2,17 +2,18 @@
 
 CAsteroid::CAsteroid(ModelType eModelType, char* TextureName)
 {
+	srand(time(NULL));
 	m_pModel = new Model(eModelType, TextureName);
 	m_pModel->SetPosition(vec3(0.0f, 0.0f, 0.0f));
 }
 
 void CAsteroid::Initialise()
 {
-	srand(time(NULL));
-	m_vSpawnPos = GetRandomPosition(10.0f);
-	m_vTargetPos = GetRandomPosition(4.0f);
+
+	m_vSpawnPos = GetRandomPosition(20.0f);
+	m_vTargetPos = GetRandomPosition(10.0f);
 	m_vPosition = m_vSpawnPos;
-	m_fSpeed = 2;
+	m_fSpeed = rand() % 8 + 2;
 
 	m_vDirectionNormal = normalize(TargetDirection(m_vSpawnPos, m_vTargetPos));
 	m_pModel->Initialise();
@@ -56,6 +57,10 @@ void CAsteroid::Update(float fDeltaTime)
 {
 	m_vPosition += (m_vDirectionNormal * m_fSpeed) * fDeltaTime;
 	m_pModel->SetPosition(m_vPosition);
+	if (distance(vec3(0.0f, 0.0f, 0.0f), m_vPosition) > 20)
+	{
+		Initialise();
+	}
 }
 
 void CAsteroid::SetDirection(vec3 vDirection)

@@ -9,9 +9,9 @@
 bool CGame::Init()
 {
 	CAsteroid* newAsteroid;
-	m_pPlayer1 = new CPlayer(QUAD, "Spacesuit_01.png");
-	m_pPlayer2 = new CPlayer(QUAD, "Spacesuit_02.png");
-	newAsteroid = new CAsteroid(QUAD, "Asteroid.png");
+	m_pPlayer1 = new CPlayer(CIRCLE, "Spacesuit_01.png");
+	m_pPlayer2 = new CPlayer(CIRCLE, "Spacesuit_02.png");
+
 	//m_pPlayer1->m_pModel->m_Rotation = glm::rotate(m_pPlayer1->m_pModel->m_Rotation, 90.0f, glm::vec3(1, 0, 0));
 
 	m_pPlayer1->Initialise();
@@ -23,9 +23,15 @@ bool CGame::Init()
 	m_pPlayer1->Texture2 = "Spacesuit_Fire_01.png";
 	m_pPlayer2->Texture2 = "Spacesuit_Fire_02.png";
 
-	newAsteroid->Initialise();
+	for (int i = 0; i < 5; ++i)
+	{
+		newAsteroid = new CAsteroid(CIRCLE, "Asteroid.png");
+		newAsteroid->Initialise();
+		m_pAsteroids.push_back(newAsteroid);
+	}
 
-	m_pAsteroids.push_back(newAsteroid);
+	m_fLastTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+
 	//m_pModels.push_back(m_pPlayer1->GetModel());
 	//m_pModels.push_back(m_pPlayer2->GetModel());
 	return true;
@@ -160,6 +166,19 @@ void CGame::Reshape(int width, int height)
 
 void CGame::Update(float fDeltaTime)
 {
+	GLfloat currentTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+	if (currentTime - m_fLastTime > 2000)
+	{
+		CAsteroid* newAsteroid = new CAsteroid(CIRCLE, "Asteroid.png");
+		newAsteroid->Initialise();
+		float scale = static_cast<float>(rand() % 500 / 1000.0f);
+		//Random Scaling
+		scale += 0.5f;
+		newAsteroid->m_pModel->m_Scale = glm::vec3(scale, scale, scale);
+		m_pAsteroids.push_back(newAsteroid);
+		printf("Nooot Nooot\n");
+		m_fLastTime = currentTime;
+	}
 	for (auto itr : m_pAsteroids)
 	{
 		itr->Update(fDeltaTime);
