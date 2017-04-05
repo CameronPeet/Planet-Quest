@@ -15,6 +15,8 @@ public:
 	void Process(GLfloat _deltaTime);
 	void MovePlayer(GLfloat deltaTime);
 
+	void SetAlive(bool _bNewState);
+	vec3& GetPosition();
 
 public:
 

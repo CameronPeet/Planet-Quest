@@ -176,12 +176,24 @@ void CGame::Update(float fDeltaTime)
 		scale += 0.5f;
 		newAsteroid->m_pModel->m_Scale = glm::vec3(scale, scale, scale);
 		m_pAsteroids.push_back(newAsteroid);
-		printf("Nooot Nooot\n");
+
 		m_fLastTime = currentTime;
 	}
 	for (auto itr : m_pAsteroids)
 	{
 		itr->Update(fDeltaTime);
+		float asteroidRadius = 0.5f * length(itr->m_pModel->m_Scale);
+		float _fDistance = length((m_pPlayer1->GetPosition() - itr->GetPosition()));
+		float radius = 0.5f * length(m_pPlayer1->m_pModel->m_Scale);
+		if ( _fDistance + 0.4f < radius + asteroidRadius)
+		{
+			itr->OnCollisionWithPlayer(*m_pPlayer1);
+		}
+		_fDistance = length((m_pPlayer2->GetPosition() - itr->GetPosition()));
+		if (_fDistance + 0.4f < radius + asteroidRadius)
+		{
+			itr->OnCollisionWithPlayer(*m_pPlayer2);
+		}
 	}
 	m_pPlayer1->Process(fDeltaTime);
 	m_pPlayer2->Process(fDeltaTime);

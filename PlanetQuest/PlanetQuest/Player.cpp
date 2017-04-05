@@ -21,22 +21,25 @@ CPlayer::CPlayer(ModelType eModelType, char* TextureName)
 
 void CPlayer::Initialise()
 {
+	m_bAlive = true;
 	m_pModel->Initialise();
 }
 
 void CPlayer::Render(GLuint program, Camera & camera)
 {
-	m_pModel->Render(program, camera);
+	if(m_bAlive)
+		m_pModel->Render(program, camera);
 }
 
 void CPlayer::Process(GLfloat _deltaTime)
 {
-	MovePlayer(_deltaTime);
+	if (m_bAlive)
+	{
+		MovePlayer(_deltaTime);
 
-	m_Position = glm::clamp(m_Position, vec3(-8.5f, 0, -8.5f) , vec3(8.5f, 0, 8.5f));
-	m_pModel->m_Position = m_Position;
-
-
+		m_Position = glm::clamp(m_Position, vec3(-8.5f, 0, -8.5f), vec3(8.5f, 0, 8.5f));
+		m_pModel->m_Position = m_Position;
+	}
 	//m_pModel->m_Rotation = m_Rotation;
 	//Do our stuff
 }
@@ -74,4 +77,14 @@ void CPlayer::MovePlayer(GLfloat _deltaTime)
 	{
 		m_pModel->m_Rotation = glm::rotate(m_pModel->m_Rotation, m_fTurnSpeed * _deltaTime, glm::vec3(0, 1, 0) * RotationDir);
 	}
+}
+
+void CPlayer::SetAlive(bool _bNewState)
+{
+	m_bAlive = _bNewState;
+}
+
+vec3& CPlayer::GetPosition()
+{
+	return m_Position;
 }

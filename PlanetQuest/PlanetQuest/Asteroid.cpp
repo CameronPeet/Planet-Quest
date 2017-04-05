@@ -45,7 +45,8 @@ vec3 CAsteroid::TargetDirection(vec3 vSpawnPos, vec3 vTargetPos)
 
 void CAsteroid::OnCollisionWithPlayer(CPlayer& pPlayer)
 {
-
+	printf("\nCollision with Player!");
+	pPlayer.SetAlive(false);
 }
 
 void CAsteroid::Render(GLuint program, Camera& camera)
@@ -71,4 +72,9 @@ void CAsteroid::SetDirection(vec3 vDirection)
 void CAsteroid::SetSpeed(float fSpeed)
 {
 	m_fSpeed = fSpeed;
+}
+
+vec3& CAsteroid::GetPosition()
+{
+	return m_vPosition;
 }
