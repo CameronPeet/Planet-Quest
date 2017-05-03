@@ -20,6 +20,7 @@ public:
 	void Update(float fDeltaTime);
 	void SetDirection(vec3 vDirection);
 	void SetSpeed(float fSpeed);
+	vec3& GetPosition();
 private:
 	vec3& GetRandomPosition(float fRadius);
 public:

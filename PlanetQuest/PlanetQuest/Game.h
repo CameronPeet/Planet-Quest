@@ -20,6 +20,8 @@ class CGame : public CScene
 
 private:
 
+	void EndRound();
+
 	std::string m_strMenuName;
 	std::string m_strServerName;
 
@@ -34,6 +36,8 @@ private:
 
 	Camera *m_Camera;
 
+	int m_iPlayer1Score;
+	int m_iPlayer2Score;
 	CPlayer* m_pPlayer1;
 	CPlayer* m_pPlayer2;
 	std::vector<CAsteroid*> m_pAsteroids;

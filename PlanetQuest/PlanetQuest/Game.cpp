@@ -166,6 +166,10 @@ void CGame::Reshape(int width, int height)
 
 void CGame::Update(float fDeltaTime)
 {
+	if (m_pPlayer1->GetAlive() == false || m_pPlayer2->GetAlive() == false)
+	{
+		EndRound();
+	}
 	GLfloat currentTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
 	if (currentTime - m_fLastTime > 2000)
 	{
@@ -197,4 +201,19 @@ void CGame::Update(float fDeltaTime)
 	}
 	m_pPlayer1->Process(fDeltaTime);
 	m_pPlayer2->Process(fDeltaTime);
+}
+
+
+void CGame::EndRound()
+{
+	if (m_pPlayer1->GetAlive() == false)
+	{
+		m_iPlayer2Score++;
+	}
+	else
+	{
+		m_iPlayer1Score++;
+	}
+	m_pAsteroids.clear();
+	CGame::Init();
 }

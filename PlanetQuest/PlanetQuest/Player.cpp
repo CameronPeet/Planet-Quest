@@ -88,3 +88,8 @@ vec3& CPlayer::GetPosition()
 {
 	return m_Position;
 }
+
+bool CPlayer::GetAlive()
+{
+	return m_bAlive;
+}

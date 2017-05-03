@@ -17,6 +17,7 @@ public:
 
 	void SetAlive(bool _bNewState);
 	vec3& GetPosition();
+	bool GetAlive();
 
 public:
 
