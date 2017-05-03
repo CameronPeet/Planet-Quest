@@ -1,36 +1,34 @@
-#include "Entity.h"
-#include <math.h>
+#pragma once
 
+#include "Model.h"
+#include "Player.h"
 
-class Asteroid : public CEntity
+#define PI 3.14159265359
+
+using namespace glm;
+
+class CAsteroid
 {
 public:
-	Asteroid();
-	~Asteroid();
+	CAsteroid(ModelType eModelType, char* TextureName);
+	void Initialise();
+	vec3 SpawnPos();
+	vec3 TargetPos();
+	vec3 TargetDirection(vec3 vSpawnPos, vec3 vTargetPos);
+	void OnCollisionWithPlayer(CPlayer& pPlayer);
+	void Render(GLuint program, Camera& camera);
+	void Update(float fDeltaTime);
+	void SetDirection(vec3 vDirection);
+	void SetSpeed(float fSpeed);
+private:
+	vec3& GetRandomPosition(float fRadius);
+public:
+	vec3 m_vSpawnPos;
+	vec3 m_vTargetPos;
+	vec3 m_vDirectionNormal;
+	float m_fSpeed;
 
-	glm::vec3 GetPointOnCircle(float radius);
+	Model* m_pModel;
+private:
+	vec3 m_vPosition;
 };
-
-
-
-Asteroid::Asteroid()
-{
-	glm::vec3 SpawnPos = GetPointOnCircle(10);
-	glm::vec3 Target = GetPointOnCircle(5);
-	m_velocity = glm::normalize(Target - SpawnPos);
-}
-
-Asteroid::~Asteroid()
-{
-
-}
-
-
-glm::vec3 Asteroid::GetPointOnCircle(float Radius)
-{
-	float x = Radius * cos(Radius);
-	float z = Radius * sin(Radius);
-
-	return glm::vec3(x, 0, z);
-}
-

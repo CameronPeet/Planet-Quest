@@ -44,15 +44,6 @@ bool CMenu::Init()
 	m_pMainMenu.push_back(new TextLabel("Quit", "Assets/Fonts/waltographUI.ttf"));
 	m_pMainMenu[2]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	//m_pMainMenu.push_back(new TextLabel("Press WASD to move", "Assets/Fonts/waltographUI.ttf"));
-	//m_pMainMenu[3]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	//m_pMainMenu[3]->setActive(false);
-	//m_pMainMenu[3]->setButton(false);
-
-	//m_pMainMenu.push_back(new TextLabel("Press IJKL to shoot", "Assets/Fonts/waltographUI.ttf"));
-	//m_pMainMenu[4]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	//m_pMainMenu[4]->setActive(false);
-	//m_pMainMenu[4]->setButton(false);
 
 	
 	/*********
@@ -73,16 +64,6 @@ bool CMenu::Init()
 	return true;
 }
 
-/**
-*
-* This function sets the text positions.
-* (Task ID: Menu)
-*
-* @author Cameron Peet
-* @param void
-* @return void
-*
-*/
 void CMenu::SetTextPositions()
 {
 	float centreX, centreY;
@@ -102,17 +83,7 @@ void CMenu::SetTextPositions()
 
 }
 
-/**
-*
-* This function renders the menu.
-* (Task ID: Menu)
-*
-* @author Cameron Peet
-* @param program This is the program.
-* @param camera This is the camera.
-* @return void
-*
-*/
+
 void CMenu::Render(GLuint program, Camera& camera)
 {
 	for (auto itr : m_pModels)
@@ -217,87 +188,19 @@ void CMenu::KeyboardDown(unsigned char c, int x, int y)
 
 }
 
-/**
-*
-* Keyboard release.
-* (Task ID: Game)
-*
-* @author Cameron Peet
-* @param c This is the character.
-* @param x This is the position.
-* @param y This is the position.
-* @return void
-*
-*/
 void CMenu::KeyboardUp(unsigned char c, int x, int y)
 {
-	//if (m_strMenuName == "GetName")
-	//{
-	//	if (c == '\r')
-	//	{
-	//		if (m_pName->getText().length() >= 3)
-	//		{
-	//			m_pPlayerNames.push_back(m_pName);
-	//			CNetwork& _rNetwork = CNetwork::GetInstance();
-	//			_rNetwork.GetNetworkEntity()->SetName(m_pPlayMenu[3]->getText());
-	//			if (_rNetwork.GetNetworkEntity()->IsHost())
-	//			{
-	//				m_strMenuName = "LobbyMenu";
-	//				m_pCurrentMenu = &m_pLobbyMenu;
-	//			}
-	//			else
-	//			{
-	//				_rNetwork.GetNetworkEntity()->SetName(m_pName->getText()); 
-	//				_rNetwork.GetNetworkEntity()->SelectServer(m_strServerName);		
-	//			}
-
-	//		}
-	//	}
-	//	else if (m_pName->getText().length() < 12)
-	//	{
-	//		m_pName->AddText(c);
-	//	}
-	//}
+	
 }
 
-/**
-*
-* Reshapes the menu.
-* (Task ID: Menu)
-*
-* @author Cameron Peet
-* @param width This is the width.
-* @param height This is the height.
-* @return void
-*
-*/
+
 void CMenu::Reshape(int width, int height)
 {
 	SetTextPositions();
 }
 
-/**
-*
-* Finds the games.
-* (Task ID: Menu)
-*
-* @author Cameron Peet
-* @param void
-* @return Returns true if successful.
-*
-*/
 
 
-/**
-*
-* Updates the menu.
-* (Task ID: Menu)
-*
-* @author Cameron Peet
-* @param fDeltaTime This is the delta time.
-* @return void
-*
-*/
 void CMenu::Update(float fDeltaTime)
 {
 

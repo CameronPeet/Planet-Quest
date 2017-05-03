@@ -13,7 +13,6 @@
 #pragma once
 #include "Model.h"
 #include "Camera.h"
-#include "Entity.h"
 #include "TextLabel.h"
 
 

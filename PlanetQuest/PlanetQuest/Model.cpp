@@ -94,8 +94,8 @@ bool Model::Initialise()
 	glBindTexture(GL_TEXTURE_2D, texture);
 
 	// Set texutre wrapping to GL_REPEAT (usually basic wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	// Set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -130,7 +130,16 @@ bool Model::Initialise()
 */
 void Model::Render(GLuint program, Camera& camera, Light* lightSource)
 {
+
+	//enable blending
+	//glEnable(GL_CULL_FACE);
+	glDepthMask(GL_FALSE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_BLEND);
+
 	glUseProgram(program);
+
 
 	//GLfloat currentTime = (GLfloat)glutGet(GLUT_ELAPSED_TIME);
 	//currentTime = currentTime / 1000;//convert millisecond to seconds
@@ -170,6 +179,10 @@ void Model::Render(GLuint program, Camera& camera, Light* lightSource)
 
 	}
 	glBindVertexArray(0);
+
+
+	glDisable(GL_CULL_FACE);
+	glDisable(GL_BLEND);
 }
 
 /**

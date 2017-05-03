@@ -13,7 +13,6 @@
 #include "ShaderLoader.h"
 #include "Model.h"
 #include "Camera.h"
-#include "Entity.h"
 #include "SceneManager.h"
 #include "Scene.h"
 #include "Menu.h"
@@ -85,6 +84,51 @@ void KeyboardUpGL(unsigned char c, int x, int y)
 	_rSceneManager.GetScene()->KeyboardUp(c, x, y);
 }
 
+
+void SpecialGL(int c, int x, int y)
+{
+	switch (c)
+	{
+	case GLUT_KEY_UP:
+		c = 'i';
+		break;
+	case GLUT_KEY_DOWN:
+		c = 'k';
+		break;
+	case GLUT_KEY_LEFT:
+		c = 'j';
+		break;
+	case GLUT_KEY_RIGHT:
+		c = 'l';
+		break;
+	}
+
+	CSceneManager& _rSceneManager = CSceneManager::GetInstance();
+	_rSceneManager.GetScene()->KeyboardDown(c, x, y);
+}
+
+void SpecialUpGL(int c, int x, int y)
+{
+	switch (c)
+	{
+	case GLUT_KEY_UP:
+		c = 'i';
+		break;
+	case GLUT_KEY_DOWN:
+		c = 'k';
+		break;
+	case GLUT_KEY_LEFT:
+		c = 'j';
+		break;
+	case GLUT_KEY_RIGHT:
+		c = 'l';
+		break;
+	}
+
+	CSceneManager& _rSceneManager = CSceneManager::GetInstance();
+	_rSceneManager.GetScene()->KeyboardUp(c, x, y);
+}
+
 /**
 *
 * Initialises the program.
@@ -121,8 +165,8 @@ bool init()
 
 
 	//Camera Set up
-	g_Camera.SetPosition(glm::vec3(0.0f, 0.0f, 1.0f));  //Set camera above the plane
-	g_Camera.SetEulerAngles(glm::vec3(-60, 0, 0));		//Set a 60 degree angle around its x axis, to point towards the plane
+	g_Camera.SetPosition(glm::vec3(0.0f, -15.0f, 0.0f));  //Set camera above the plane
+	g_Camera.SetEulerAngles(glm::vec3(90.0f, 0, 0));		//Set a 60 degree angle around its x axis, to point towards the plane
 
 	CSceneManager& _rSceneManager = CSceneManager::GetInstance();
 	VALIDATE(_rSceneManager.Initialise());
@@ -249,6 +293,7 @@ int main(int argc, char **argv)
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
+
 	//glEnable(GL_CULL_FACE);
 
 	// register callbacks
@@ -257,6 +302,8 @@ int main(int argc, char **argv)
 	glutReshapeFunc(Reshape);
 	glutKeyboardFunc(KeyboardGL);
 	glutKeyboardUpFunc(KeyboardUpGL);
+	glutSpecialFunc(SpecialGL);
+	glutSpecialUpFunc(SpecialUpGL);
 	glutPassiveMotionFunc(PassiveMotionGL);
 	glutMouseFunc(MouseGL);
 	glutMainLoop();

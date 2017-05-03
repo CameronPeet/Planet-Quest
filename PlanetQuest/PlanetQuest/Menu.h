@@ -16,7 +16,6 @@
 #pragma once
 
 #include "Scene.h"
-#include "Entity.h"
 
 
 class CMenu : public CScene
@@ -56,9 +55,6 @@ private:
 
 	//For dynamic control over individual elements, easier understood by name rather than by index number of the vector.
 	Model* m_pEditBox;
-
-	//Vector for easier rendering
-	std::vector<CEntity*> m_pEntities;
 
 	float LowerYSpacing = 0.0f;
 
