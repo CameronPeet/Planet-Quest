@@ -31,15 +31,31 @@ bool CGame::Init()
 	}
 
 	m_fLastTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+	m_fRoundStartTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
 
 	//m_pModels.push_back(m_pPlayer1->GetModel());
 	//m_pModels.push_back(m_pPlayer2->GetModel());
+
+	// Game Text
+	// Timer
+	m_pTextLabel = new TextLabel(TIMER, "", "Assets//Fonts//Pacifico.ttf");
+	m_pTextLabel->setScale(0.6f);
+	m_pTextLabel->setPosition(glm::vec3(1130.0f, 750.0f, 0.0f));
+	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddText(m_pTextLabel);
+
 	return true;
 }
 
 //calculate new text positions
 void CGame::SetTextPositions()
 {
+
+}
+
+void CGame::AddText(TextLabel* _text) 
+{
+	m_textLabels.push_back(_text);
 }
 
 void CGame::Render(GLuint program, Camera& camera)
@@ -61,8 +77,23 @@ void CGame::Render(GLuint program, Camera& camera)
 	{
 		itr->Render(program, camera);
 	}
+
+	RenderText(camera);
 }
 
+void CGame::RenderText(Camera & camera)
+{
+	for (auto textLabel = m_textLabels.begin(); textLabel != m_textLabels.end(); textLabel++)
+	{
+		if ((*textLabel)->GetTextType() == TIMER)
+		{
+			int Time = static_cast<int>((m_GLfCurrentTime - m_fRoundStartTime) / 1000);
+			if (Time < 0) Time = 0;
+			(*textLabel)->setText(std::to_string(Time));
+			(*textLabel)->Render(camera);
+		}
+	}
+}
 
 //Highlight and play sound when you mouse over an active button 
 void CGame::PassiveMotion(int x, int y)
@@ -170,8 +201,8 @@ void CGame::Update(float fDeltaTime)
 	{
 		EndRound();
 	}
-	GLfloat currentTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
-	if (currentTime - m_fLastTime > 2000)
+	m_GLfCurrentTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+	if (m_GLfCurrentTime - m_fLastTime > 2000)
 	{
 		CAsteroid* newAsteroid = new CAsteroid(CIRCLE, "Asteroid.png");
 		newAsteroid->Initialise();
@@ -181,7 +212,7 @@ void CGame::Update(float fDeltaTime)
 		newAsteroid->m_pModel->m_Scale = glm::vec3(scale, scale, scale);
 		m_pAsteroids.push_back(newAsteroid);
 
-		m_fLastTime = currentTime;
+		m_fLastTime = m_GLfCurrentTime;
 	}
 	for (auto itr : m_pAsteroids)
 	{

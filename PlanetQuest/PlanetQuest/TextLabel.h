@@ -36,10 +36,16 @@
 #include <string>
 #include <iostream>
 
+enum TextType
+{
+	MENU,
+	TIMER
+};
+
 class TextLabel
 {
 public:
-	TextLabel(std::string text, std::string font = 0);
+	TextLabel(TextType _type, std::string text, std::string font = 0);
 	~TextLabel();
 
 	void Render(Camera& camera);
@@ -69,6 +75,8 @@ public:
 	bool m_bIsActive = true;
 	bool m_bIsHighlighted = false;
 
+	TextType GetTextType();
+
 
 private:
 	std::string text;
@@ -78,6 +86,8 @@ private:
 
 	GLuint VAO, VBO, program;
 	std::map<GLchar, Character> Characters;
+	TextType m_TextType;
+
 
 	
 

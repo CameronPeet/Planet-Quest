@@ -9,6 +9,7 @@ class CGame : public CScene
 {
 	bool Init();
 	void Render(GLuint program, Camera& camera);
+	void RenderText(Camera& camera);
 	void Update(float fDeltaTime);
 	void PassiveMotion(int x, int y);
 	void Mouse(int button, int state, int x, int y);
@@ -16,6 +17,7 @@ class CGame : public CScene
 	void KeyboardUp(unsigned char c, int x, int y);
 	void Reshape(int width, int height);
 	void SetTextPositions();
+	void AddText(TextLabel* _text);
 
 
 private:
@@ -34,6 +36,8 @@ private:
 	//Vector for easier rendering
 	std::vector<Model*> m_pModels;
 
+	std::vector<TextLabel*> m_textLabels;
+
 	Camera *m_Camera;
 
 	int m_iPlayer1Score;
@@ -41,6 +45,10 @@ private:
 	CPlayer* m_pPlayer1;
 	CPlayer* m_pPlayer2;
 	std::vector<CAsteroid*> m_pAsteroids;
+	TextLabel* m_pTextLabel;
 
 	float m_fLastTime;
+	float m_fRoundStartTime;
+	GLfloat m_GLfCurrentTime;
+
 };

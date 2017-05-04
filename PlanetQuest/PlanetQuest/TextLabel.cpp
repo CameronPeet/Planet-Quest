@@ -25,8 +25,9 @@
 * @return void
 *
 */
-TextLabel::TextLabel(std::string text, std::string font) 
+TextLabel::TextLabel(TextType _type, std::string text, std::string font)
 {
+	m_TextType = _type;
 
 	this->text = text;
 	this->color = glm::vec3(1.0, 1.0, 1.0);
@@ -366,4 +367,9 @@ void TextLabel::LoadFont(std::string path)
 	// Destroy FreeType once we're finished
 	FT_Done_Face(face);
 	FT_Done_FreeType(ft);
+}
+
+TextType TextLabel::GetTextType()
+{
+	return m_TextType;
 }

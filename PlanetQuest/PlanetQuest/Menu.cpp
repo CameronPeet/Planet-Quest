@@ -33,15 +33,15 @@ bool CMenu::Init()
 	/*MainMenu*/
 	//Menu Text in order seen top to bottom.
 	//Play button - Clicked to open the Play Menu
-	m_pMainMenu.push_back(new TextLabel("Play", "Assets/Fonts/waltographUI.ttf"));
+	m_pMainMenu.push_back(new TextLabel(MENU, "Play", "Assets/Fonts/waltographUI.ttf"));
 	m_pMainMenu[0]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	m_pMainMenu.push_back(new TextLabel("Controls", "Assets/Fonts/waltographUI.ttf"));
+	m_pMainMenu.push_back(new TextLabel(MENU, "Controls", "Assets/Fonts/waltographUI.ttf"));
 	m_pMainMenu[1]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
 
 	//Quit Application Button - Click to glutLeaveMainLoop() and end application
-	m_pMainMenu.push_back(new TextLabel("Quit", "Assets/Fonts/waltographUI.ttf"));
+	m_pMainMenu.push_back(new TextLabel(MENU, "Quit", "Assets/Fonts/waltographUI.ttf"));
 	m_pMainMenu[2]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
 
