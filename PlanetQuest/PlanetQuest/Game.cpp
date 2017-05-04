@@ -44,6 +44,16 @@ bool CGame::Init()
 	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	AddText(m_pTextLabel);
 
+	m_Player1ScoreText = new TextLabel(GAMEOVER, "Player1 Score : ", "Assets//Fonts//Pacifico.ttf");
+	m_Player1ScoreText->setScale(0.6f);
+	m_Player1ScoreText->setPosition(glm::vec3(700.0f, 200.0f, 0.0f));
+	m_Player1ScoreText->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+
+	m_Player2ScoreText = new TextLabel(GAMEOVER, "Player2 Score : ", "Assets//Fonts//Pacifico.ttf");
+	m_Player2ScoreText->setScale(0.6f);
+	m_Player2ScoreText->setPosition(glm::vec3(700.0f, 400.0f, 0.0f));
+	m_Player2ScoreText->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+
 	return true;
 }
 
@@ -60,24 +70,28 @@ void CGame::AddText(TextLabel* _text)
 
 void CGame::Render(GLuint program, Camera& camera)
 {
-	m_pPlayer1->Render(program, camera);
-	m_pPlayer2->Render(program, camera);
-	//render all models
-	for (auto itr : m_pModels)
+	if (!m_GameOver)
 	{
-		itr->Render(program, camera);
-	}
-	//render all text in current menu s
-	for (auto itr : *m_pCurrentMenu)
-	{
-		itr->Render(camera);
-	}
-	//render all Asteroids
-	for (auto itr : m_pAsteroids)
-	{
-		itr->Render(program, camera);
-	}
+		m_pPlayer1->Render(program, camera);
+		m_pPlayer2->Render(program, camera);
+		//render all models
+		for (auto itr : m_pModels)
+		{
+			itr->Render(program, camera);
+		}
+		//render all text in current menu s
+		for (auto itr : *m_pCurrentMenu)
+		{
+			itr->Render(camera);
+		}
+		//render all Asteroids
+		for (auto itr : m_pAsteroids)
+		{
+			itr->Render(program, camera);
+		}
 
+	}
+	
 	RenderText(camera);
 }
 
@@ -87,11 +101,29 @@ void CGame::RenderText(Camera & camera)
 	{
 		if ((*textLabel)->GetTextType() == TIMER)
 		{
-			int Time = static_cast<int>((m_GLfCurrentTime - m_fRoundStartTime) / 1000);
-			if (Time < 0) Time = 0;
-			(*textLabel)->setText(std::to_string(Time));
+			if (!m_GameOver)
+			{
+				int Time = static_cast<int>((m_GLfCurrentTime - m_fRoundStartTime) / 1000);
+				if (Time < 0) Time = 0;
+				(*textLabel)->setText(std::to_string(Time));
+			}
 			(*textLabel)->Render(camera);
 		}
+	}
+
+	if (m_GameOver)
+	{
+		int player1Alive = 0;
+		int player2Alive = 0;
+		if (m_pPlayer1->GetAlive())
+			player1Alive = 1;
+		else
+			player2Alive = 1;
+
+		m_Player1ScoreText->setText("Player 1 Score : " + std::to_string(m_iPlayer1Score + player1Alive));
+		m_Player2ScoreText->setText("Player 2 Score : " + std::to_string(m_iPlayer2Score + player2Alive));
+		m_Player1ScoreText->Render(camera);
+		m_Player2ScoreText->Render(camera);
 	}
 }
 
@@ -185,6 +217,10 @@ void CGame::KeyboardUp(unsigned char c, int x, int y)
 	case 'L':
 		m_pPlayer2->d = 0;
 		break;
+
+	case VK_SPACE:
+		m_StartNextRound = true;
+		break;
 	}
 }
 
@@ -199,39 +235,50 @@ void CGame::Update(float fDeltaTime)
 {
 	if (m_pPlayer1->GetAlive() == false || m_pPlayer2->GetAlive() == false)
 	{
-		EndRound();
+		if (m_StartNextRound)
+		{
+			EndRound();
+		}
 	}
-	m_GLfCurrentTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
-	if (m_GLfCurrentTime - m_fLastTime > 2000)
-	{
-		CAsteroid* newAsteroid = new CAsteroid(CIRCLE, "Asteroid.png");
-		newAsteroid->Initialise();
-		float scale = static_cast<float>(rand() % 500 / 1000.0f);
-		//Random Scaling
-		scale += 0.5f;
-		newAsteroid->m_pModel->m_Scale = glm::vec3(scale, scale, scale);
-		m_pAsteroids.push_back(newAsteroid);
 
-		m_fLastTime = m_GLfCurrentTime;
-	}
-	for (auto itr : m_pAsteroids)
+	if (!m_GameOver)
 	{
-		itr->Update(fDeltaTime);
-		float asteroidRadius = 0.5f * length(itr->m_pModel->m_Scale);
-		float _fDistance = length((m_pPlayer1->GetPosition() - itr->GetPosition()));
-		float radius = 0.5f * length(m_pPlayer1->m_pModel->m_Scale);
-		if ( _fDistance + 0.4f < radius + asteroidRadius)
+		m_GLfCurrentTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+		if (m_GLfCurrentTime - m_fLastTime > 2000)
 		{
-			itr->OnCollisionWithPlayer(*m_pPlayer1);
+			CAsteroid* newAsteroid = new CAsteroid(CIRCLE, "Asteroid.png");
+			newAsteroid->Initialise();
+			float scale = static_cast<float>(rand() % 500 / 1000.0f);
+			//Random Scaling
+			scale += 0.5f;
+			newAsteroid->m_pModel->m_Scale = glm::vec3(scale, scale, scale);
+			m_pAsteroids.push_back(newAsteroid);
+
+			m_fLastTime = m_GLfCurrentTime;
 		}
-		_fDistance = length((m_pPlayer2->GetPosition() - itr->GetPosition()));
-		if (_fDistance + 0.4f < radius + asteroidRadius)
+
+		for (auto itr : m_pAsteroids)
 		{
-			itr->OnCollisionWithPlayer(*m_pPlayer2);
+			itr->Update(fDeltaTime);
+			float asteroidRadius = 0.5f * length(itr->m_pModel->m_Scale);
+			float _fDistance = length((m_pPlayer1->GetPosition() - itr->GetPosition()));
+			float radius = 0.5f * length(m_pPlayer1->m_pModel->m_Scale);
+			if (_fDistance + 0.4f < radius + asteroidRadius)
+			{
+				itr->OnCollisionWithPlayer(*m_pPlayer1);
+				m_GameOver = true;
+			}
+			_fDistance = length((m_pPlayer2->GetPosition() - itr->GetPosition()));
+			if (_fDistance + 0.4f < radius + asteroidRadius)
+			{
+				itr->OnCollisionWithPlayer(*m_pPlayer2);
+				m_GameOver = true;
+			}
 		}
+
+		m_pPlayer1->Process(fDeltaTime);
+		m_pPlayer2->Process(fDeltaTime);
 	}
-	m_pPlayer1->Process(fDeltaTime);
-	m_pPlayer2->Process(fDeltaTime);
 }
 
 
@@ -245,6 +292,8 @@ void CGame::EndRound()
 	{
 		m_iPlayer1Score++;
 	}
+	m_GameOver = false;
+	m_StartNextRound = false;
 	m_pAsteroids.clear();
 	CGame::Init();
 }

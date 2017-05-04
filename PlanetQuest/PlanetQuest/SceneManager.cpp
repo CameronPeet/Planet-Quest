@@ -101,19 +101,16 @@ bool CSceneManager::Initialise()
 {
 	if (!m_bInit)
 	{
-		//m_pSceneMap.insert(std::pair<std::string, CScene*>("Game", CGame::GetInstance()));
-		//m_pSelectedScene = m_pSceneMap.find("Game")->second;
-		//m_pSelectedScene->Init();
 
 		//m_pSceneMap.insert(std::pair<std::string, CScene*>("GameOver", new CGameOver()));
 		//m_pSelectedScene = m_pSceneMap.find("GameOver")->second;
 		//m_pSelectedScene->Init();
 
-		//m_pSceneMap.insert(std::pair<std::string, CScene*>("Credits", new CCredits()));
-		//m_pSelectedScene = m_pSceneMap.find("Credits")->second;
-		//m_pSelectedScene->Init();
+		m_pSceneMap.insert(std::pair<std::string, CScene*>("Game", new CGame()));
+		m_pSelectedScene = m_pSceneMap.find("Game")->second;
+		m_pSelectedScene->Init();
 
-		m_pSceneMap.insert(std::pair<std::string, CScene*>("Menu", new CGame()));
+		m_pSceneMap.insert(std::pair<std::string, CScene*>("Menu", new CMenu()));
 		m_pSelectedScene = m_pSceneMap.find("Menu")->second;
 		m_pSelectedScene->Init();
 

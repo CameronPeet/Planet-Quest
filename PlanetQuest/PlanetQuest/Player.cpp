@@ -4,6 +4,14 @@
 // This Include
 #include "Player.h"
 
+int CPlayer::Player1Score = 0;
+int CPlayer::Player2Score = 0;
+bool CPlayer::Player1WonLastRound = false;
+bool CPlayer::Player2WonLastRound = false;
+
+int CPlayer::TimeOfLastRound = 0;
+
+
 //CPlayer::~CPlayer()
 //{
 //	Model::~Model();

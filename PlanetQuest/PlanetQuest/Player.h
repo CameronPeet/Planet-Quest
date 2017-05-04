@@ -41,4 +41,11 @@ public:
 
 	char* Texture1;
 	char* Texture2;
+
+
+	static int Player1Score;
+	static int Player2Score;
+	static bool Player1WonLastRound;
+	static bool Player2WonLastRound;
+	static int TimeOfLastRound;
 };
