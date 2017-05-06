@@ -31,7 +31,7 @@ bool CGame::Init()
 	}
 
 	m_fLastTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
-	m_fRoundStartTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+//	m_fRoundStartTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
 
 	//m_pModels.push_back(m_pPlayer1->GetModel());
 	//m_pModels.push_back(m_pPlayer2->GetModel());
@@ -233,6 +233,12 @@ void CGame::Reshape(int width, int height)
 
 void CGame::Update(float fDeltaTime)
 {
+	if (!m_RoundTimerStarted)
+	{
+		m_fRoundStartTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+		m_RoundTimerStarted = true;
+	}
+
 	if (m_pPlayer1->GetAlive() == false || m_pPlayer2->GetAlive() == false)
 	{
 		if (m_StartNextRound)
@@ -296,4 +302,6 @@ void CGame::EndRound()
 	m_StartNextRound = false;
 	m_pAsteroids.clear();
 	CGame::Init();
+
+	m_RoundTimerStarted = false;
 }

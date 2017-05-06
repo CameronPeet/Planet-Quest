@@ -55,5 +55,6 @@ private:
 
 	bool m_GameOver = false;
 	bool m_StartNextRound = false;
+	bool m_RoundTimerStarted = false;
 
 };
