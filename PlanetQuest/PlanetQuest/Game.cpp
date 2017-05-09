@@ -44,15 +44,23 @@ bool CGame::Init()
 	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	AddText(m_pTextLabel);
 
-	m_Player1ScoreText = new TextLabel(GAMEOVER, "Player1 Score : ", "Assets//Fonts//Pacifico.ttf");
-	m_Player1ScoreText->setScale(0.6f);
-	m_Player1ScoreText->setPosition(glm::vec3(700.0f, 200.0f, 0.0f));
-	m_Player1ScoreText->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_pTextLabel = new TextLabel(GAMEOVER, "Round Over!", "Assets//Fonts//Pacifico.ttf");
+	m_pTextLabel->setScale(0.9f);
+	m_pTextLabel->setPosition(glm::vec3(430.0f, 600.0f, 0.0f));
+	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddText(m_pTextLabel);
 
-	m_Player2ScoreText = new TextLabel(GAMEOVER, "Player2 Score : ", "Assets//Fonts//Pacifico.ttf");
-	m_Player2ScoreText->setScale(0.6f);
-	m_Player2ScoreText->setPosition(glm::vec3(700.0f, 400.0f, 0.0f));
+	m_Player1ScoreText = new TextLabel(GAMEOVER, "", "Assets//Fonts//Pacifico.ttf");
+	m_Player1ScoreText->setScale(0.7f);
+	m_Player1ScoreText->setPosition(glm::vec3(400.0f, 380.0f, 0.0f));
+	m_Player1ScoreText->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddText(m_Player1ScoreText);
+
+	m_Player2ScoreText = new TextLabel(GAMEOVER, "", "Assets//Fonts//Pacifico.ttf");
+	m_Player2ScoreText->setScale(0.7f);
+	m_Player2ScoreText->setPosition(glm::vec3(400.0f, 280.0f, 0.0f));
 	m_Player2ScoreText->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddText(m_Player2ScoreText);
 
 	return true;
 }
@@ -89,7 +97,6 @@ void CGame::Render(GLuint program, Camera& camera)
 		{
 			itr->Render(program, camera);
 		}
-
 	}
 	
 	RenderText(camera);
@@ -109,21 +116,12 @@ void CGame::RenderText(Camera & camera)
 			}
 			(*textLabel)->Render(camera);
 		}
-	}
 
-	if (m_GameOver)
-	{
-		int player1Alive = 0;
-		int player2Alive = 0;
-		if (m_pPlayer1->GetAlive())
-			player1Alive = 1;
-		else
-			player2Alive = 1;
-
-		m_Player1ScoreText->setText("Player 1 Score : " + std::to_string(m_iPlayer1Score + player1Alive));
-		m_Player2ScoreText->setText("Player 2 Score : " + std::to_string(m_iPlayer2Score + player2Alive));
-		m_Player1ScoreText->Render(camera);
-		m_Player2ScoreText->Render(camera);
+		if ((*textLabel)->GetTextType() == GAMEOVER)
+		{
+			if (m_GameOver)
+				(*textLabel)->Render(camera);
+		}
 	}
 }
 
@@ -284,6 +282,18 @@ void CGame::Update(float fDeltaTime)
 
 		m_pPlayer1->Process(fDeltaTime);
 		m_pPlayer2->Process(fDeltaTime);
+	}
+	else
+	{
+		int player1Alive = 0;
+		int player2Alive = 0;
+		if (m_pPlayer1->GetAlive())
+			player1Alive = 1;
+		else
+			player2Alive = 1;
+
+		m_Player1ScoreText->setText("Player 1 Score : " + std::to_string(m_iPlayer1Score + player1Alive));
+		m_Player2ScoreText->setText("Player 2 Score : " + std::to_string(m_iPlayer2Score + player2Alive));
 	}
 }
 
