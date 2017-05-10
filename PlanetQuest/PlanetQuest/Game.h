@@ -48,6 +48,7 @@ private:
 
 	float m_fLastTime;
 	float m_fRoundStartTime;
+	float m_fSplashScreenTimer;
 	GLfloat m_GLfCurrentTime;
 
 	TextLabel* m_Player1ScoreText;
@@ -56,5 +57,7 @@ private:
 	bool m_GameOver = false;
 	bool m_StartNextRound = false;
 	bool m_RoundTimerStarted = false;
+	bool m_RoundStart = false;
+	bool m_NewRound = false;
 
 };

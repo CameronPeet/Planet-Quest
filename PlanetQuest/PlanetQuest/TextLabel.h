@@ -40,7 +40,8 @@ enum TextType
 {
 	MENU,
 	TIMER,
-	GAMEOVER
+	GAMEOVER,
+	SPLASH
 };
 
 class TextLabel

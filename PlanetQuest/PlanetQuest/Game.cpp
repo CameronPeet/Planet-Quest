@@ -31,6 +31,7 @@ bool CGame::Init()
 	}
 
 	m_fLastTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+	m_fSplashScreenTimer = 0.0f;
 //	m_fRoundStartTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
 
 	//m_pModels.push_back(m_pPlayer1->GetModel());
@@ -50,6 +51,12 @@ bool CGame::Init()
 	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	AddText(m_pTextLabel);
 
+	m_pTextLabel = new TextLabel(SPLASH, "Controls", "Assets//Fonts//Pacifico.ttf");
+	m_pTextLabel->setScale(0.9f);
+	m_pTextLabel->setPosition(glm::vec3(430.0f, 600.0f, 0.0f));
+	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddText(m_pTextLabel);
+
 	m_Player1ScoreText = new TextLabel(GAMEOVER, "", "Assets//Fonts//Pacifico.ttf");
 	m_Player1ScoreText->setScale(0.7f);
 	m_Player1ScoreText->setPosition(glm::vec3(400.0f, 380.0f, 0.0f));
@@ -61,6 +68,8 @@ bool CGame::Init()
 	m_Player2ScoreText->setPosition(glm::vec3(400.0f, 280.0f, 0.0f));
 	m_Player2ScoreText->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	AddText(m_Player2ScoreText);
+
+	m_NewRound = true;
 
 	return true;
 }
@@ -78,7 +87,7 @@ void CGame::AddText(TextLabel* _text)
 
 void CGame::Render(GLuint program, Camera& camera)
 {
-	if (!m_GameOver)
+	if (!m_GameOver && !m_RoundStart)
 	{
 		m_pPlayer1->Render(program, camera);
 		m_pPlayer2->Render(program, camera);
@@ -114,12 +123,19 @@ void CGame::RenderText(Camera & camera)
 				if (Time < 0) Time = 0;
 				(*textLabel)->setText(std::to_string(Time));
 			}
-			(*textLabel)->Render(camera);
+			if (!m_RoundStart)
+				(*textLabel)->Render(camera);
 		}
 
 		if ((*textLabel)->GetTextType() == GAMEOVER)
 		{
 			if (m_GameOver)
+				(*textLabel)->Render(camera);
+		}
+
+		if ((*textLabel)->GetTextType() == SPLASH)
+		{
+			if (m_RoundStart)
 				(*textLabel)->Render(camera);
 		}
 	}
@@ -231,6 +247,22 @@ void CGame::Reshape(int width, int height)
 
 void CGame::Update(float fDeltaTime)
 {
+	if (m_NewRound)
+	{
+		m_RoundStart = true;
+		m_NewRound = false;
+	}
+				
+	if (m_RoundStart)
+	{
+		m_fSplashScreenTimer += fDeltaTime;
+
+		if (m_fSplashScreenTimer > 1.5f)
+			m_RoundStart = false;
+
+		return;
+	}
+	
 	if (!m_RoundTimerStarted)
 	{
 		m_fRoundStartTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
