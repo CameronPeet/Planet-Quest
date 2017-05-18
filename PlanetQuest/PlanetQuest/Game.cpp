@@ -343,7 +343,16 @@ void CGame::EndRound()
 	m_GameOver = false;
 	m_StartNextRound = false;
 	m_pAsteroids.clear();
+	EmptyTextLabelVector();
 	CGame::Init();
 
 	m_RoundTimerStarted = false;
+}
+
+void CGame::EmptyTextLabelVector()
+{
+	while (m_textLabels.size() > 0)
+	{
+		m_textLabels.pop_back();
+	}
 }

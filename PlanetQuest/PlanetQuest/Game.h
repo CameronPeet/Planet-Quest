@@ -18,6 +18,7 @@ class CGame : public CScene
 	void Reshape(int width, int height);
 	void SetTextPositions();
 	void AddText(TextLabel* _text);
+	void EmptyTextLabelVector();
 
 private:
 
