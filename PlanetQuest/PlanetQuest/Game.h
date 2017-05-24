@@ -8,6 +8,7 @@
 class CGame : public CScene
 {
 	bool Init();
+	void Reset();
 	void Render(GLuint program, Camera& camera);
 	void RenderText(Camera& camera);
 	void Update(float fDeltaTime);
@@ -18,7 +19,6 @@ class CGame : public CScene
 	void Reshape(int width, int height);
 	void SetTextPositions();
 	void AddText(TextLabel* _text);
-	void EmptyTextLabelVector();
 
 private:
 
@@ -47,18 +47,22 @@ private:
 	std::vector<CAsteroid*> m_pAsteroids;
 	TextLabel* m_pTextLabel;
 
+
 	float m_fLastTime;
 	float m_fRoundStartTime;
 	float m_fSplashScreenTimer;
 	GLfloat m_GLfCurrentTime;
 
+	//Textlabels to keep track of
+	TextLabel* m_pTextTimer;
+	TextLabel* m_pTextRoundOver;
+	TextLabel* m_pTextControls;
 	TextLabel* m_Player1ScoreText;
 	TextLabel* m_Player2ScoreText;
 
 	bool m_GameOver = false;
 	bool m_StartNextRound = false;
 	bool m_RoundTimerStarted = false;
-	bool m_RoundStart = false;
-	bool m_NewRound = false;
+	bool m_ShowSplashScreen = false;
 
 };

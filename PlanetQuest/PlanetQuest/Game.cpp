@@ -19,7 +19,7 @@ bool CGame::Init()
 
 	m_pPlayer1->Texture1 = "Spacesuit_01.png";
 	m_pPlayer2->Texture1 = "Spacesuit_02.png";
-	
+
 	m_pPlayer1->Texture2 = "Spacesuit_Fire_01.png";
 	m_pPlayer2->Texture2 = "Spacesuit_Fire_02.png";
 
@@ -32,30 +32,30 @@ bool CGame::Init()
 
 	m_fLastTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
 	m_fSplashScreenTimer = 0.0f;
-//	m_fRoundStartTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
+	//	m_fRoundStartTime = static_cast<GLfloat>(glutGet(GLUT_ELAPSED_TIME));
 
 	//m_pModels.push_back(m_pPlayer1->GetModel());
 	//m_pModels.push_back(m_pPlayer2->GetModel());
 
 	// Game Text
 	// Timer
-	m_pTextLabel = new TextLabel(TIMER, "", "Assets//Fonts//Pacifico.ttf");
-	m_pTextLabel->setScale(0.6f);
-	m_pTextLabel->setPosition(glm::vec3(1130.0f, 750.0f, 0.0f));
-	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	AddText(m_pTextLabel);
+	m_pTextTimer = new TextLabel(TIMER, "", "Assets//Fonts//Pacifico.ttf");
+	m_pTextTimer->setScale(0.6f);
+	m_pTextTimer->setPosition(glm::vec3(1130.0f, 750.0f, 0.0f));
+	m_pTextTimer->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddText(m_pTextTimer);
 
-	m_pTextLabel = new TextLabel(GAMEOVER, "Round Over!", "Assets//Fonts//Pacifico.ttf");
-	m_pTextLabel->setScale(0.9f);
-	m_pTextLabel->setPosition(glm::vec3(430.0f, 600.0f, 0.0f));
-	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	AddText(m_pTextLabel);
+	m_pTextRoundOver = new TextLabel(GAMEOVER, "Round Over!", "Assets//Fonts//Pacifico.ttf");
+	m_pTextRoundOver->setScale(0.9f);
+	m_pTextRoundOver->setPosition(glm::vec3(430.0f, 600.0f, 0.0f));
+	m_pTextRoundOver->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddText(m_pTextRoundOver);
 
-	m_pTextLabel = new TextLabel(SPLASH, "Controls", "Assets//Fonts//Pacifico.ttf");
-	m_pTextLabel->setScale(0.9f);
-	m_pTextLabel->setPosition(glm::vec3(430.0f, 600.0f, 0.0f));
-	m_pTextLabel->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	AddText(m_pTextLabel);
+	m_pTextControls = new TextLabel(SPLASH, "Controls", "Assets//Fonts//Pacifico.ttf");
+	m_pTextControls->setScale(0.9f);
+	m_pTextControls->setPosition(glm::vec3(430.0f, 600.0f, 0.0f));
+	m_pTextControls->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddText(m_pTextControls);
 
 	m_Player1ScoreText = new TextLabel(GAMEOVER, "", "Assets//Fonts//Pacifico.ttf");
 	m_Player1ScoreText->setScale(0.7f);
@@ -69,9 +69,36 @@ bool CGame::Init()
 	m_Player2ScoreText->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	AddText(m_Player2ScoreText);
 
-	m_NewRound = true;
+	m_ShowSplashScreen = true;
 
 	return true;
+}
+
+void CGame::Reset()
+{
+	//Reset timer text
+	m_pTextTimer->setText("0");
+
+	//Reset Players
+	m_pPlayer1->m_Position = glm::vec3(0, 0, 0);
+	m_pPlayer1->SetAlive(true);
+
+	m_pPlayer2->m_Position = glm::vec3(0, 0, 0);
+	m_pPlayer2->SetAlive(true);
+
+
+	//Reset Asteroids Vector
+	m_pAsteroids.clear();
+	for (int i = 0; i < 5; ++i)
+	{
+		CAsteroid* newAsteroid = new CAsteroid(CIRCLE, "Asteroid.png");
+		newAsteroid->Initialise();
+		m_pAsteroids.push_back(newAsteroid);
+	}
+
+	m_GameOver = false;
+	m_StartNextRound = false;
+	m_RoundTimerStarted = false;
 }
 
 //calculate new text positions
@@ -87,7 +114,7 @@ void CGame::AddText(TextLabel* _text)
 
 void CGame::Render(GLuint program, Camera& camera)
 {
-	if (!m_GameOver && !m_RoundStart)
+	if (!m_GameOver && !m_ShowSplashScreen)
 	{
 		m_pPlayer1->Render(program, camera);
 		m_pPlayer2->Render(program, camera);
@@ -123,7 +150,7 @@ void CGame::RenderText(Camera & camera)
 				if (Time < 0) Time = 0;
 				(*textLabel)->setText(std::to_string(Time));
 			}
-			if (!m_RoundStart)
+			if (!m_ShowSplashScreen)
 				(*textLabel)->Render(camera);
 		}
 
@@ -135,7 +162,7 @@ void CGame::RenderText(Camera & camera)
 
 		if ((*textLabel)->GetTextType() == SPLASH)
 		{
-			if (m_RoundStart)
+			if (m_ShowSplashScreen)
 				(*textLabel)->Render(camera);
 		}
 	}
@@ -247,19 +274,13 @@ void CGame::Reshape(int width, int height)
 
 void CGame::Update(float fDeltaTime)
 {
-	if (m_NewRound)
-	{
-		m_RoundStart = true;
-		m_NewRound = false;
-	}
 				
-	if (m_RoundStart)
+	if (m_ShowSplashScreen)
 	{
 		m_fSplashScreenTimer += fDeltaTime;
 
 		if (m_fSplashScreenTimer > 1.5f)
-			m_RoundStart = false;
-
+			m_ShowSplashScreen = false;
 		return;
 	}
 	
@@ -340,19 +361,9 @@ void CGame::EndRound()
 	{
 		m_iPlayer1Score++;
 	}
-	m_GameOver = false;
-	m_StartNextRound = false;
-	m_pAsteroids.clear();
-	EmptyTextLabelVector();
-	CGame::Init();
 
-	m_RoundTimerStarted = false;
-}
 
-void CGame::EmptyTextLabelVector()
-{
-	while (m_textLabels.size() > 0)
-	{
-		m_textLabels.pop_back();
-	}
+	CGame::Reset();
+	//CGame::Init();
+
 }

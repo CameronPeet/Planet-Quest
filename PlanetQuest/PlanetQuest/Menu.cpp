@@ -52,8 +52,8 @@ bool CMenu::Init()
 	//EditBox - To represent the text field in which the users character presses will appear.
 	m_pEditBox = new Model(QUAD, "AsteroidBelt.jpg");
 	VALIDATE(m_pEditBox->Initialise());
-	m_pEditBox->m_Scale = glm::vec3(2, 1, 1);
-	m_pEditBox->m_Rotation = glm::quat(1.0f, glm::radians(60.0f), 0.0f, 0.0f);
+	m_pEditBox->m_Scale = glm::vec3(20, 1, 20);
+	//m_pEditBox->m_Rotation = glm::quat(1.0f, glm::radians(90.0f), 0.0f, 0.0f);
 	m_pModels.push_back(m_pEditBox);
 
 	//Current Menu State - Used to determine rendering and proccessing.
