@@ -50,20 +50,20 @@ bool CGame::Init()
 	m_pTextTimer = new TextLabel(TIMER, "", "Assets//Fonts//Pacifico.ttf");
 	m_pTextTimer->setScale(0.6f);
 	m_pTextTimer->setPosition(glm::vec3(1130.0f, 750.0f, 0.0f));
-	m_pTextTimer->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_pTextTimer->setColor(glm::vec3(0.7f, 0.7f, 0.7f));
 	AddText(m_pTextTimer);
+
+	m_pGameTimerText = new TextLabel(GAME, "Time", "Assets//Fonts//Pacifico.ttf");
+	m_pGameTimerText->setScale(0.6f);
+	m_pGameTimerText->setPosition(glm::vec3(1030.0f, 750.0f, 0.0f));
+	m_pGameTimerText->setColor(glm::vec3(0.7f, 0.7f, 0.7f));
+	AddText(m_pGameTimerText);
 
 	m_pTextRoundOver = new TextLabel(GAMEOVER, "Round Over!", "Assets//Fonts//Pacifico.ttf");
 	m_pTextRoundOver->setScale(0.9f);
 	m_pTextRoundOver->setPosition(glm::vec3(430.0f, 600.0f, 0.0f));
 	m_pTextRoundOver->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	AddText(m_pTextRoundOver);
-
-	m_pTextControls = new TextLabel(SPLASH, "Controls", "Assets//Fonts//Pacifico.ttf");
-	m_pTextControls->setScale(0.9f);
-	m_pTextControls->setPosition(glm::vec3(430.0f, 600.0f, 0.0f));
-	m_pTextControls->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	AddText(m_pTextControls);
 
 	m_Player1ScoreText = new TextLabel(GAMEOVER, "", "Assets//Fonts//Pacifico.ttf");
 	m_Player1ScoreText->setScale(0.7f);
@@ -174,9 +174,9 @@ void CGame::RenderText(Camera & camera)
 				(*textLabel)->Render(camera);
 		}
 
-		if ((*textLabel)->GetTextType() == SPLASH)
+		if ((*textLabel)->GetTextType() == GAME)
 		{
-			if (m_ShowSplashScreen)
+			if (!m_ShowSplashScreen)
 				(*textLabel)->Render(camera);
 		}
 	}
@@ -293,7 +293,7 @@ void CGame::Update(float fDeltaTime)
 	{
 		m_fSplashScreenTimer += fDeltaTime;
 
-		if (m_fSplashScreenTimer > 1.5f)
+		if (m_fSplashScreenTimer > 6.0f)
 			m_ShowSplashScreen = false;
 		return;
 	}

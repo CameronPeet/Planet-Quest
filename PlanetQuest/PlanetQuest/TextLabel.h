@@ -40,6 +40,7 @@ enum TextType
 {
 	MENU,
 	TIMER,
+	GAME,
 	GAMEOVER,
 	SPLASH
 };
