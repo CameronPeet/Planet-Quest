@@ -60,6 +60,7 @@ private:
 	TextLabel* m_pTextTimer;
 	TextLabel* m_pTextRoundOver;
 	TextLabel* m_pTextControls;
+	TextLabel* m_pGameTimerText;
 	TextLabel* m_Player1ScoreText;
 	TextLabel* m_Player2ScoreText;
 
