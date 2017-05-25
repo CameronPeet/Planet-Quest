@@ -235,7 +235,8 @@ void Utils::SetCircle(Model& _rCircle)
 	VertexFormat Vertex(0.0f, 0.0f, 0.0f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0); _rCircle.vertices.push_back(Vertex);//Centre point
 	GLfloat _iX = 0.0, _iY = 0.5f;//Starting coordinates for circle
 	GLfloat xNew = _iX, yNew = _iY;//New coordinates
-	GLfloat radius = 0.6f;
+	GLfloat radius = 0.6f; //original radius
+	//radius = 0.4f;
 	GLfloat angle = 3.14f / 360.0f;
 	float cosAngle = cos(angle);
 	float sinAngle = sin(angle);
