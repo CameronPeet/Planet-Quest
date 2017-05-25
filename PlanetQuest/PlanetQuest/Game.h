@@ -64,6 +64,7 @@ private:
 	TextLabel* m_pGameTimerText;
 	TextLabel* m_Player1ScoreText;
 	TextLabel* m_Player2ScoreText;
+	TextLabel* m_pPressSpaceText;
 
 	bool m_GameOver = false;
 	bool m_StartNextRound = false;

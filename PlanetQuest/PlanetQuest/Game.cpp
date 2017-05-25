@@ -65,6 +65,12 @@ bool CGame::Init()
 	m_pTextRoundOver->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	AddText(m_pTextRoundOver);
 
+	m_pPressSpaceText = new TextLabel(GAMEOVER, "Press Space to start the next round", "Assets//Fonts//Pacifico.ttf");
+	m_pPressSpaceText->setScale(0.7f);
+	m_pPressSpaceText->setPosition(glm::vec3(215.0f, 100.0f, 0.0f));
+	m_pPressSpaceText->setColor(glm::vec3(0.7f, 0.7f, 0.7f));
+	AddText(m_pPressSpaceText);
+
 	m_Player1ScoreText = new TextLabel(GAMEOVER, "", "Assets//Fonts//Pacifico.ttf");
 	m_Player1ScoreText->setScale(0.7f);
 	m_Player1ScoreText->setPosition(glm::vec3(400.0f, 380.0f, 0.0f));
