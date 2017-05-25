@@ -14,6 +14,7 @@ public:
 	void Render(GLuint program, Camera& camera);
 	void Process(GLfloat _deltaTime);
 	void MovePlayer(GLfloat deltaTime);
+	void ResetAcceleration();
 
 	void SetAlive(bool _bNewState);
 	vec3& GetPosition();
