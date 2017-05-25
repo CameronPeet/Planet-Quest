@@ -23,6 +23,10 @@ bool CGame::Init()
 	m_pPlayer1->Texture2 = "Spacesuit_Fire_01.png";
 	m_pPlayer2->Texture2 = "Spacesuit_Fire_02.png";
 
+	m_pSplashScreen = new Model(QUAD, "Controls.png");
+	VALIDATE(m_pSplashScreen->Initialise());
+	m_pSplashScreen->m_Scale = glm::vec3(18, 1, 18);
+
 	for (int i = 0; i < 5; ++i)
 	{
 		newAsteroid = new CAsteroid(CIRCLE, "Asteroid.png");
@@ -134,7 +138,10 @@ void CGame::Render(GLuint program, Camera& camera)
 			itr->Render(program, camera);
 		}
 	}
-	
+	else if (m_ShowSplashScreen)
+	{
+		m_pSplashScreen->Render(program, camera);
+	}
 	RenderText(camera);
 }
 

@@ -36,6 +36,8 @@ private:
 	//Vector for easier rendering
 	std::vector<Model*> m_pModels;
 
+	Model* m_pSplashScreen;
+
 	std::vector<TextLabel*> m_textLabels;
 
 	Camera *m_Camera;

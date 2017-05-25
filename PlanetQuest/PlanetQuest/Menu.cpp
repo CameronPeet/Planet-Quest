@@ -34,15 +34,14 @@ bool CMenu::Init()
 	//Menu Text in order seen top to bottom.
 	//Play button - Clicked to open the Play Menu
 	m_pMainMenu.push_back(new TextLabel(MENU, "Play", "Assets/Fonts/waltographUI.ttf"));
-	m_pMainMenu[0]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_pMainMenu[0]->setColor(glm::vec3(0.9f, 0.9f, 0.9f));
 
 	m_pMainMenu.push_back(new TextLabel(MENU, "Controls", "Assets/Fonts/waltographUI.ttf"));
-	m_pMainMenu[1]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-
+	m_pMainMenu[1]->setColor(glm::vec3(0.9f, 0.9f, 0.9f));
 
 	//Quit Application Button - Click to glutLeaveMainLoop() and end application
 	m_pMainMenu.push_back(new TextLabel(MENU, "Quit", "Assets/Fonts/waltographUI.ttf"));
-	m_pMainMenu[2]->setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_pMainMenu[2]->setColor(glm::vec3(0.9f, 0.9f, 0.9f));
 
 
 	
@@ -50,10 +49,10 @@ bool CMenu::Init()
 	Models
 	**********/
 	//EditBox - To represent the text field in which the users character presses will appear.
-	m_pEditBox = new Model(QUAD, "AsteroidBelt.jpg");
+	m_pEditBox = new Model(QUAD, "TitleScreen.png");
 	VALIDATE(m_pEditBox->Initialise());
 	m_pEditBox->m_Scale = glm::vec3(20, 1, 20);
-	//m_pEditBox->m_Rotation = glm::quat(1.0f, glm::radians(90.0f), 0.0f, 0.0f);
+	//m_pEditBox->m_Rotation = glm::quat(1.0f, glm::radians(45.0f), 0.0f, 0.0f);
 	m_pModels.push_back(m_pEditBox);
 
 	//Current Menu State - Used to determine rendering and proccessing.
@@ -71,12 +70,12 @@ void CMenu::SetTextPositions()
 	centreY = Utils::HEIGHT / 2;
 	float maxItems = 8.0f;
 	float spacing = Utils::HEIGHT / maxItems;
-	float yTop = Utils::HEIGHT - spacing * 3;
+	float yTop = Utils::HEIGHT - spacing * 4;
 
 
-	m_pMainMenu[0]->setPosition(glm::vec3(centreX  / 2, yTop, 10));
-	m_pMainMenu[1]->setPosition(glm::vec3(centreX  / 2, yTop - spacing, 10));
-	m_pMainMenu[2]->setPosition(glm::vec3(centreX  / 2, yTop - spacing * 2, 10));
+	m_pMainMenu[0]->setPosition(glm::vec3(centreX + spacing, yTop, 10));
+	m_pMainMenu[1]->setPosition(glm::vec3(centreX + spacing, yTop - spacing, 10));
+	m_pMainMenu[2]->setPosition(glm::vec3(centreX + spacing, yTop - spacing * 2, 10));
 	//m_pMainMenu[3]->setPosition(glm::vec3(centreX / 2 + spacing * 2, yTop - spacing * 3, 10));
 	//m_pMainMenu[4]->setPosition(glm::vec3(centreX / 2 + spacing * 2, yTop - spacing * 4, 10));
 	m_pEditBox->m_Position = glm::vec3(0, -1, 0);
