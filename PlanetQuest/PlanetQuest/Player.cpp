@@ -87,6 +87,11 @@ void CPlayer::MovePlayer(GLfloat _deltaTime)
 	}
 }
 
+void CPlayer::ResetAcceleration()
+{
+	Accelerate = 0.0f;
+}
+
 void CPlayer::SetAlive(bool _bNewState)
 {
 	m_bAlive = _bNewState;

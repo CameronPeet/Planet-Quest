@@ -82,9 +82,11 @@ void CGame::Reset()
 	//Reset Players
 	m_pPlayer1->m_Position = glm::vec3(0, 0, 0);
 	m_pPlayer1->SetAlive(true);
+	m_pPlayer1->ResetAcceleration();
 
 	m_pPlayer2->m_Position = glm::vec3(0, 0, 0);
 	m_pPlayer2->SetAlive(true);
+	m_pPlayer2->ResetAcceleration();
 
 
 	//Reset Asteroids Vector
@@ -362,7 +364,6 @@ void CGame::EndRound()
 	{
 		m_iPlayer1Score++;
 	}
-
 
 	CGame::Reset();
 	//CGame::Init();
