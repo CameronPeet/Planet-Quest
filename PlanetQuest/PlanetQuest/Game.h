@@ -37,6 +37,7 @@ private:
 	std::vector<Model*> m_pModels;
 
 	Model* m_pSplashScreen;
+	Model* m_pBackground;
 
 	std::vector<TextLabel*> m_textLabels;
 

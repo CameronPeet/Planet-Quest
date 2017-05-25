@@ -27,6 +27,10 @@ bool CGame::Init()
 	VALIDATE(m_pSplashScreen->Initialise());
 	m_pSplashScreen->m_Scale = glm::vec3(18, 1, 18);
 
+	m_pBackground = new Model(QUAD, "GameplayBackground.png");
+	VALIDATE(m_pBackground->Initialise());
+	m_pBackground->m_Scale = glm::vec3(18, 1, 18);
+
 	for (int i = 0; i < 5; ++i)
 	{
 		newAsteroid = new CAsteroid(CIRCLE, "Asteroid.png");
@@ -122,6 +126,7 @@ void CGame::Render(GLuint program, Camera& camera)
 {
 	if (!m_GameOver && !m_ShowSplashScreen)
 	{
+		m_pBackground->Render(program, camera);
 		m_pPlayer1->Render(program, camera);
 		m_pPlayer2->Render(program, camera);
 		//render all models
