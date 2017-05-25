@@ -299,13 +299,14 @@ void CGame::Update(float fDeltaTime)
 			float asteroidRadius = 0.5f * length(itr->m_pModel->m_Scale);
 			float _fDistance = length((m_pPlayer1->GetPosition() - itr->GetPosition()));
 			float radius = 0.5f * length(m_pPlayer1->m_pModel->m_Scale);
-			if (_fDistance + 0.4f < radius + asteroidRadius)
+			//EDIT Adding flex value to try and account for texture against shape size
+			if (_fDistance + m_fCollisionFlex < radius + asteroidRadius)
 			{
 				itr->OnCollisionWithPlayer(*m_pPlayer1);
 				m_GameOver = true;
 			}
 			_fDistance = length((m_pPlayer2->GetPosition() - itr->GetPosition()));
-			if (_fDistance + 0.4f < radius + asteroidRadius)
+			if (_fDistance + m_fCollisionFlex< radius + asteroidRadius)
 			{
 				itr->OnCollisionWithPlayer(*m_pPlayer2);
 				m_GameOver = true;

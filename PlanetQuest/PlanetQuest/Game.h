@@ -50,6 +50,7 @@ private:
 	float m_fLastTime;
 	float m_fRoundStartTime;
 	float m_fSplashScreenTimer;
+	float m_fCollisionFlex = 0.3f; //collision detection flex value to account for texture being smaller than shape
 	GLfloat m_GLfCurrentTime;
 
 	TextLabel* m_Player1ScoreText;
