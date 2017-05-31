@@ -70,6 +70,7 @@ private:
 	TextLabel* m_Player1ScoreText;
 	TextLabel* m_Player2ScoreText;
 	TextLabel* m_pPressSpaceText;
+	TextLabel* m_pPressESCText;
 
 	bool m_GameOver = false;
 	bool m_StartNextRound = false;

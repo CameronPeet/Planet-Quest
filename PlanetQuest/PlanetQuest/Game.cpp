@@ -74,6 +74,12 @@ bool CGame::Init()
 	m_pPressSpaceText->setColor(glm::vec3(0.7f, 0.7f, 0.7f));
 	AddText(m_pPressSpaceText);
 
+	m_pPressESCText = new TextLabel(GAMEOVER, "Press Esc to return to the main menu", "Assets//Fonts//Pacifico.ttf");
+	m_pPressESCText->setScale(0.6f);
+	m_pPressESCText->setPosition(glm::vec3(255.0f, 50.0f, 0.0f));
+	m_pPressESCText->setColor(glm::vec3(0.7f, 0.7f, 0.7f));
+	AddText(m_pPressESCText);
+
 	m_Player1ScoreText = new TextLabel(GAMEOVER, "", "Assets//Fonts//Pacifico.ttf");
 	m_Player1ScoreText->setScale(0.7f);
 	m_Player1ScoreText->setPosition(glm::vec3(400.0f, 380.0f, 0.0f));
@@ -283,7 +289,15 @@ void CGame::KeyboardUp(unsigned char c, int x, int y)
 		break;
 
 	case VK_SPACE:
-		m_StartNextRound = true;
+		if(m_GameOver)m_StartNextRound = true;
+		break;
+	case VK_ESCAPE:
+		if (m_GameOver)
+		{
+			Reset();
+			CSceneManager& _rSceneManager = CSceneManager::GetInstance();
+			_rSceneManager.SelectScene("Menu");		
+		}
 		break;
 	}
 }
