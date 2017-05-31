@@ -19,6 +19,16 @@ void CAsteroid::Initialise()
 	m_pModel->Initialise();
 }
 
+void CAsteroid::Reset()
+{
+	m_vSpawnPos = GetRandomPosition(20.0f);
+	m_vTargetPos = GetRandomPosition(10.0f);
+	m_vPosition = m_vSpawnPos;
+	m_fSpeed = rand() % 8 + 2;
+
+	m_vDirectionNormal = normalize(TargetDirection(m_vSpawnPos, m_vTargetPos));
+}
+
 vec3& CAsteroid::GetRandomPosition(float fRadius)
 {
 	int _iRand = rand() % 360;
@@ -60,7 +70,7 @@ void CAsteroid::Update(float fDeltaTime)
 	m_pModel->SetPosition(m_vPosition);
 	if (distance(vec3(0.0f, 0.0f, 0.0f), m_vPosition) > 20)
 	{
-		Initialise();
+		Reset();
 	}
 }
 
