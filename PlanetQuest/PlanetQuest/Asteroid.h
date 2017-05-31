@@ -12,6 +12,7 @@ class CAsteroid
 public:
 	CAsteroid(ModelType eModelType, char* TextureName);
 	void Initialise();
+	void Reset();
 	vec3 SpawnPos();
 	vec3 TargetPos();
 	vec3 TargetDirection(vec3 vSpawnPos, vec3 vTargetPos);
