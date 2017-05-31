@@ -291,6 +291,7 @@ void CMenu::ShowControls()
 		if (itr->getText() == "Controls")
 		{
 			itr->setText("Exit");
+			itr->setPosition(itr->position + glm::vec3(-152, 0, 0));
 		}
 		else
 		{
@@ -308,6 +309,7 @@ void CMenu::HideControls()
 		if (itr->getText() == "Exit")
 		{
 			itr->setText("Controls");
+			itr->setPosition(itr->position + glm::vec3(+152, 0, 0));
 		}
 		else
 		{
