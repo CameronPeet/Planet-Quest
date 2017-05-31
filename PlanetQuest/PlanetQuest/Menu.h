@@ -36,9 +36,16 @@ public:
 	//void ClientProcess();
 	void SetTextPositions();
 
+
+	void ShowControls();
+	void HideControls();
+	void NextMenuItem(int next);
 	//std::vector<std::string> GetPlayers();  { return m_vecPlayerNames; }
 
 private:
+
+	TextLabel* m_pCurrentMenuItem;
+	int CurrentMenuIndex;
 
 	std::string m_strMenuName;
 	std::string m_strServerName;
@@ -55,6 +62,9 @@ private:
 
 	//For dynamic control over individual elements, easier understood by name rather than by index number of the vector.
 	Model* m_pEditBox;
+
+	Model* m_pSplashScreen;
+	bool m_bShowControlsImage;
 
 	float LowerYSpacing = 0.0f;
 

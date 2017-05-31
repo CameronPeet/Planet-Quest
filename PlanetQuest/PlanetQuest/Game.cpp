@@ -16,6 +16,9 @@ bool CGame::Init()
 
 	m_pPlayer1->Initialise();
 	m_pPlayer2->Initialise();
+	
+	m_pPlayer1->m_Position = glm::vec3(-1, 0, 0);
+	m_pPlayer2->m_Position = glm::vec3(1, 0, 0);
 
 	m_pPlayer1->Texture1 = "Spacesuit_01.png";
 	m_pPlayer2->Texture1 = "Spacesuit_02.png";
@@ -94,11 +97,11 @@ void CGame::Reset()
 	m_pTextTimer->setText("0");
 
 	//Reset Players
-	m_pPlayer1->m_Position = glm::vec3(0, 0, 0);
+	m_pPlayer1->m_Position = glm::vec3(-1, 0, 0);
 	m_pPlayer1->SetAlive(true);
 	m_pPlayer1->ResetAcceleration();
 
-	m_pPlayer2->m_Position = glm::vec3(0, 0, 0);
+	m_pPlayer2->m_Position = glm::vec3(1, 0, 0);
 	m_pPlayer2->SetAlive(true);
 	m_pPlayer2->ResetAcceleration();
 
@@ -289,7 +292,6 @@ void CGame::KeyboardUp(unsigned char c, int x, int y)
 //Reshape or reset positions if you need to
 void CGame::Reshape(int width, int height)
 {
-	SetTextPositions();
 }
 
 void CGame::Update(float fDeltaTime)
@@ -387,3 +389,7 @@ void CGame::EndRound()
 	//CGame::Init();
 
 }
+
+
+
+

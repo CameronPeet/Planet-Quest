@@ -260,8 +260,10 @@ void Reshape(int width, int height)
 
 	g_Camera.SetViewPort(0, 0, width, height);
 	g_Camera.SetProjection(60.0f, (float)(width / height), 0.1f, 100.0f);
+
 	Utils::WIDTH = static_cast<float>(width);
 	Utils::HEIGHT = static_cast<float>(height);
+
 	CSceneManager& _rSceneManager = CSceneManager::GetInstance();
 	_rSceneManager.GetScene()->Reshape(width, height);
 }

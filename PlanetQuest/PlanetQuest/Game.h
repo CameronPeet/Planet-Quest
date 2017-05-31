@@ -20,6 +20,11 @@ class CGame : public CScene
 	void SetTextPositions();
 	void AddText(TextLabel* _text);
 
+
+	//Tests
+	bool TestPlayerScores();
+
+
 private:
 
 	void EndRound();

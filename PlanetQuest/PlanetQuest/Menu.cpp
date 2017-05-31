@@ -43,7 +43,15 @@ bool CMenu::Init()
 	m_pMainMenu.push_back(new TextLabel(MENU, "Quit", "Assets/Fonts/waltographUI.ttf"));
 	m_pMainMenu[2]->setColor(glm::vec3(0.9f, 0.9f, 0.9f));
 
+	m_pCurrentMenuItem = m_pMainMenu[0];
+	m_pCurrentMenuItem->m_bIsHighlighted = true;
+	m_pCurrentMenuItem->setHighlight(glm::vec3(0, 0, 1));
+	CurrentMenuIndex = 0;
 
+	m_pSplashScreen = new Model(QUAD, "Controls.png");
+	VALIDATE(m_pSplashScreen->Initialise());
+	m_pSplashScreen->m_Scale = glm::vec3(18, 1, 18);
+	m_bShowControlsImage = false;
 	
 	/*********
 	Models
@@ -89,10 +97,19 @@ void CMenu::Render(GLuint program, Camera& camera)
 	{
 		itr->Render(program, camera);
 	}
+
+	if (m_bShowControlsImage)
+	{
+		m_pSplashScreen->Render(program, camera);
+	}
+
 	for (auto itr : *m_pCurrentMenu)
 	{
-		itr->Render(camera);
+		if(itr->m_bIsActive)
+			itr->Render(camera);
 	}
+
+
 }
 
 /**
@@ -124,7 +141,7 @@ void CMenu::PassiveMotion(int x, int y)
 			}
 			else
 			{
-				if (itr->isHighlighted())
+				if (itr->isHighlighted() && itr != m_pCurrentMenuItem)
 				{
 					itr->setHighlighted(false);
 				}
@@ -167,6 +184,16 @@ void CMenu::Mouse(int button, int state, int x, int y)
 							_rSceneManager.SelectScene("Game");
 						}
 
+						else if (text == "Controls")
+						{
+							ShowControls();
+						}
+
+						else if (text == "Exit")
+						{
+							HideControls();
+						}
+
 						else if (text == "Quit")
 						{
 							glutLeaveMainLoop();
@@ -184,7 +211,55 @@ void CMenu::Mouse(int button, int state, int x, int y)
 
 void CMenu::KeyboardDown(unsigned char c, int x, int y)
 {
+	switch (c)
+	{
+	case 'w':
+	case 'W':
+		NextMenuItem(-1);
+		break;
+	case 's':
+	case 'S':
+		NextMenuItem(1);
+		break;
+	case 'i':
+	case 'I':
+		NextMenuItem(-1);
+		break;
+	case 'k':
+	case 'K':
+		NextMenuItem(1);
+		break;
 
+	case VK_SPACE:
+	case '/n':
+		{
+			std::string text = m_pCurrentMenuItem->getText();
+			if (text == "Play")
+			{
+				CSceneManager& _rSceneManager = CSceneManager::GetInstance();
+				_rSceneManager.SelectScene("Game");
+			}
+
+			else if (text == "Controls")
+			{
+				ShowControls();
+			}
+
+			else if (text == "Exit")
+			{
+				HideControls();
+			}
+
+			else if (text == "Quit")
+			{
+				glutLeaveMainLoop();
+				//Utils::g_Play = false;
+			}
+
+			m_pCurrentMenuItem->setHighlighted(false);
+		}
+		break;
+	}
 }
 
 void CMenu::KeyboardUp(unsigned char c, int x, int y)
@@ -203,4 +278,60 @@ void CMenu::Reshape(int width, int height)
 void CMenu::Update(float fDeltaTime)
 {
 
+}
+
+
+
+void CMenu::ShowControls()
+{
+	m_bShowControlsImage = true;
+
+	for (auto itr : *m_pCurrentMenu)
+	{
+		if (itr->getText() == "Controls")
+		{
+			itr->setText("Exit");
+		}
+		else
+		{
+			itr->m_bIsActive = false;
+		}
+	}
+}
+
+
+void CMenu::HideControls()
+{
+	m_bShowControlsImage = false;
+	for (auto itr : *m_pCurrentMenu)
+	{
+		if (itr->getText() == "Exit")
+		{
+			itr->setText("Controls");
+		}
+		else
+		{
+			itr->m_bIsActive = true;
+		}
+	}
+}
+
+
+void CMenu::NextMenuItem(int next)
+{
+	CurrentMenuIndex += next;
+
+	if (CurrentMenuIndex >= m_pMainMenu.size())
+	{
+		CurrentMenuIndex = 0;
+	}
+	else if (CurrentMenuIndex < 0)
+	{
+		CurrentMenuIndex = m_pMainMenu.size() - 1;
+	}
+
+	m_pCurrentMenuItem->setHighlighted(false);
+	m_pCurrentMenuItem = m_pMainMenu[CurrentMenuIndex];
+	m_pCurrentMenuItem->setHighlight(glm::vec3(0, 0, 1));
+	m_pCurrentMenuItem->setHighlighted(true);
 }
