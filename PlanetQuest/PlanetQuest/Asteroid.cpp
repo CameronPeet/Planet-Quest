@@ -56,6 +56,7 @@ vec3 CAsteroid::TargetDirection(vec3 vSpawnPos, vec3 vTargetPos)
 void CAsteroid::OnCollisionWithPlayer(CPlayer& pPlayer)
 {
 	printf("\nCollision with Player!");
+	CResources::PlayAudio("Death.wav");
 	pPlayer.SetAlive(false);
 }
 

@@ -219,6 +219,8 @@ void CGame::KeyboardDown(unsigned char c, int x, int y)
 	case 'w':
 	case 'W':
 		m_pPlayer1->w = 1;
+		CResources::StopSound("RocketBlast.wav");
+		CResources::PlayAudio("RocketBlast.wav");
 		break;
 	case 's':
 	case 'S':
@@ -235,6 +237,8 @@ void CGame::KeyboardDown(unsigned char c, int x, int y)
 	case 'i':
 	case 'I':
 		m_pPlayer2->w = 1;
+		CResources::StopSound("RocketBlast.wav");
+		CResources::PlayAudio("RocketBlast.wav");
 		break;
 	case 'k':
 	case 'K':
@@ -258,6 +262,7 @@ void CGame::KeyboardUp(unsigned char c, int x, int y)
 	case 'w':
 	case 'W':
 		m_pPlayer1->w = 0;
+		CResources::StopSound("RocketBlast.wav");
 		break;
 	case 's':
 	case 'S':
@@ -274,6 +279,7 @@ void CGame::KeyboardUp(unsigned char c, int x, int y)
 	case 'i':
 	case 'I':
 		m_pPlayer2->w = 0;
+		CResources::StopSound("RocketBlast.wav");
 		break;
 	case 'k':
 	case 'K':

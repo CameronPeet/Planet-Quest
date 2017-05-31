@@ -114,7 +114,8 @@ bool CSceneManager::Initialise()
 		m_pSelectedScene = m_pSceneMap.find("Menu")->second;
 		m_pSelectedScene->Init();
 
-		CResources::LoopSound("TimeHansZimmer.mp3");
+		//CResources::LoopSound("TimeHansZimmer.mp3");
+		CResources::LoopSound("MenuSound.wav");
 		
 		return true;
 	}
@@ -148,16 +149,24 @@ bool CSceneManager::SelectScene(std::string _strSceneName)
 
 		if (_strSceneName == "Menu")
 		{
+			/*
 			CResources::StopSound("End.mp3");
 			CResources::StopSound("Credits.mp3");
 			CResources::StopSound("ImitationGame.mp3");
 			CResources::LoopSound("TimeHansZimmer.mp3");
+			*/
+			CResources::LoopSound("MenuSound.wav");
+			CResources::StopSound("GameLoop.wav");
 		}
 		if (_strSceneName == "Game")
 		{
+			/*
 			CResources::StopSound("End.mp3");
 			CResources::StopSound("TimeHansZimmer.mp3");
 			CResources::LoopSound("ImitationGame.mp3");
+			*/
+			CResources::LoopSound("GameLoop.wav");
+			CResources::StopSound("MenuSound.wav");
 		}
 		if (_strSceneName == "GameOver")
 		{
