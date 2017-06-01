@@ -136,6 +136,7 @@ void CMenu::PassiveMotion(int x, int y)
 				{
 					CResources::PlayAudio("mouseover.wav");
 				}
+				SelectItem(itr);
 				itr->setHighlighted(true);
 				itr->setHighlight(glm::vec3(0, 0, 1));
 			}
@@ -336,4 +337,19 @@ void CMenu::NextMenuItem(int next)
 	m_pCurrentMenuItem = m_pMainMenu[CurrentMenuIndex];
 	m_pCurrentMenuItem->setHighlight(glm::vec3(0, 0, 1));
 	m_pCurrentMenuItem->setHighlighted(true);
+}
+
+void CMenu::SelectItem(TextLabel* label)
+{
+	for (auto itr : m_pMainMenu)
+	{
+		if (itr->getText() == label->getText())
+		{
+			m_pCurrentMenuItem->setHighlighted(false);
+			m_pCurrentMenuItem = itr;
+			m_pCurrentMenuItem->setHighlight(glm::vec3(0, 0, 1));
+			m_pCurrentMenuItem->setHighlighted(true);
+			return;
+		}
+	}
 }
