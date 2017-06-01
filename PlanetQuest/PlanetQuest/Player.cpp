@@ -92,6 +92,11 @@ void CPlayer::ResetAcceleration()
 	Accelerate = 0.0f;
 }
 
+void CPlayer::ResetRotation()
+{
+	m_pModel->m_Rotation = quat(1.0f, 0.0f, 0.0f, 0.0f);
+}
+
 void CPlayer::SetAlive(bool _bNewState)
 {
 	m_bAlive = _bNewState;

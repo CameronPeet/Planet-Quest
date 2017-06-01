@@ -106,10 +106,12 @@ void CGame::Reset()
 	m_pPlayer1->m_Position = glm::vec3(-1, 0, 0);
 	m_pPlayer1->SetAlive(true);
 	m_pPlayer1->ResetAcceleration();
+	m_pPlayer1->ResetRotation();
 
 	m_pPlayer2->m_Position = glm::vec3(1, 0, 0);
 	m_pPlayer2->SetAlive(true);
 	m_pPlayer2->ResetAcceleration();
+	m_pPlayer2->ResetRotation();
 
 
 	//Reset Asteroids Vector
