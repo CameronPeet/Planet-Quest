@@ -303,8 +303,8 @@ void CGame::KeyboardUp(unsigned char c, int x, int y)
 		if (m_GameOver)
 		{
 			Reset();
-			m_pPlayer1->Player1Score = 0;
-			m_pPlayer2->Player2Score = 0;
+			m_iPlayer1Score = 0;
+			m_iPlayer2Score = 0;
 			CSceneManager& _rSceneManager = CSceneManager::GetInstance();
 			_rSceneManager.SelectScene("Menu");		
 		}
