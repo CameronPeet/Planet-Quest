@@ -480,6 +480,7 @@ public:
 				{
 					bool* paused = 0;
 					channel->second->getPaused(paused);
+
 					if (paused)
 					{
 						channel->second->setPaused(false);
