@@ -40,6 +40,7 @@ public:
 	void ShowControls();
 	void HideControls();
 	void NextMenuItem(int next);
+	void SelectItem(TextLabel*);
 	//std::vector<std::string> GetPlayers();  { return m_vecPlayerNames; }
 
 private:
